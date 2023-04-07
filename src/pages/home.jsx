@@ -21,6 +21,7 @@ export default function DiagramPage() {
         applyGenerator={doApplyGenerator}
       />
       <Diagram
+        key={points.length}
         points={points}
         numElements={points.length}
         generators={parseCycleNotation(generators)}
