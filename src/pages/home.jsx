@@ -101,6 +101,16 @@ function Diagram({ numElements, generators, points }) {
           </g>
         );
       })}
+      {_.range(1, points.length + 1).map((i) => {
+        const [x, y] = getCoordinates(i, n, radius + 30);
+        return (
+          <g key={i} style={{ transform: `translate(${x}px,${y}px)`}}>
+            <text textAnchor="middle" dominantBaseline="middle">
+              {i}
+            </text>
+          </g>
+        );
+      })}
     </svg>
   );
 }
