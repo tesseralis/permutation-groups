@@ -1,6 +1,6 @@
 import * as React from "react";
-import { cyclePairs, parseCycleNotation } from "../util";
-import { schemeCategory10 } from "d3-scale-chromatic"
+import { parseCycleNotation } from "../util";
+import { schemeCategory10 } from "d3-scale-chromatic";
 
 export default function DiagramPage() {
   const [numElements, setNumElements] = React.useState(6);
@@ -13,7 +13,10 @@ export default function DiagramPage() {
         generators={generators}
         setGenerators={setGenerators}
       />
-      <Diagram numElements={numElements} generators={parseCycleNotation(generators)} />
+      <Diagram
+        numElements={numElements}
+        generators={parseCycleNotation(generators)}
+      />
     </div>
   );
 }
@@ -36,7 +39,6 @@ function Sidebar({ numElements, setNumElements, generators, setGenerators }) {
           value={generators}
           onChange={(e) => setGenerators(e.target.value)}
         />
-        {JSON.stringify(parseCycleNotation(generators))}
       </label>
     </section>
   );
@@ -53,21 +55,31 @@ function Diagram({ numElements, generators }) {
       viewBox="-300 -300 600 600"
     >
       {generators.map((generator, j) => {
-        return <g color={schemeCategory10[j]}>
-          {
-            generator.map(cycle => {
-              return <polygon points={cycle.map(i => {
-                  const [x, y] = 
-                })} />
-            })
-          }
-        </g>
+        return (
+          <g color={schemeCategory10[j]}>
+            {generator.map((cycle) => {
+              return (
+                <polygon
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  fill="none"
+                  points={cycle
+                    .map((i) => {
+                      const [x, y] = getCoordinates(i - 1, n, radius - 2 * j);
+                      return `${x},${y}`;
+                    })
+                    .join(" ")}
+                />
+              );
+            })}
+          </g>
+        );
       })}
       {[...Array(n).keys()].map((i) => {
-        const [x, y] = getCoordinates(i, n, radius)
+        const [x, y] = getCoordinates(i, n, radius);
         return (
           <g key={i} transform={`translate(${x}, ${y})`}>
-            <circle stroke="grey" strokeWidth={1} fill="none" r={20}></circle>
+            <circle stroke="grey" strokeWidth={1} fill="white" r={20}></circle>
             <text textAnchor="middle" dominantBaseline="middle">
               {i + 1}
             </text>
