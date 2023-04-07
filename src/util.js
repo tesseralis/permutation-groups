@@ -5,3 +5,7 @@ export function parseCycleNotation(cyclesString) {
 function parseGenerator(generator) {
   return [...generator.matchAll(/\(([^)]+)\)/g)].map(x => x[1].split(' ').map(i => +i))
 }
+
+function cyclePairs(cycle) {
+  return cycle.map((el, i) => [el, cycle[(i + 1) % cycle.length]])
+}

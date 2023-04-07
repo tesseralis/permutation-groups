@@ -1,5 +1,6 @@
 import * as React from "react";
-import { parseCycleNotation } from "../util";
+import { cyclePairs, parseCycleNotation } from "../util";
+import { schemeCategory10 } from "d3-scale-chromatic"
 
 export default function DiagramPage() {
   const [numElements, setNumElements] = React.useState(6);
@@ -51,6 +52,17 @@ function Diagram({ numElements, generators }) {
       height={600}
       viewBox="-300 -300 600 600"
     >
+      {generators.map((generator, j) => {
+        return <g color={schemeCategory10[j]}>
+          {
+            generator.map(cycle => {
+              return <polygon points={cycle.map(i => {
+                  const [x, y] = 
+                })} />
+            })
+          }
+        </g>
+      })}
       {[...Array(n).keys()].map((i) => {
         const [x, y] = getCoordinates(i, n, radius)
         return (
