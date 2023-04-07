@@ -9,7 +9,6 @@ export default function DiagramPage() {
   const [generators, setGenerators] = React.useState("(1 2 3)\n(1 4 5 6)");
   const setNumElements = (n) => setPoints(_.range(1, n+1))
   const doApplyGenerator = (generator) => {
-    console.log(applyGenerator(generator, points))
     setPoints(p => applyGenerator(generator, p))
   }
   return (
@@ -93,7 +92,7 @@ function Diagram({ numElements, generators, points }) {
         const p = _p + 1
         const [x, y] = getCoordinates(i, n, radius);
         return (
-          <g key={p} transform={`translate(${x}, ${y})`}>
+          <g className="Point" key={p} style={{ transform: `translate(${x}px,${y}px)`}}>
             <circle stroke="grey" strokeWidth={1} fill="white" r={20}></circle>
             <text textAnchor="middle" dominantBaseline="middle">
               {p}

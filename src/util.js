@@ -21,7 +21,7 @@ function applyCycle(cycle, points) {
 function applyCycleToPoint(cycle, point) {
   const index = cycle.indexOf(point)
   if (index === -1) return point
-  return cycle[(index + 1) / cycle.length]
+  return cycle[(index + 1) % cycle.length]
 }
 
 export function generatorToString(generator) {

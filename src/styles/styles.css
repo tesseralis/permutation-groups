@@ -6,3 +6,7 @@
 .Diagram {
   justify-self: center;
 }
+
+.Point {
+  transition: transform 500ms linear;
+}
