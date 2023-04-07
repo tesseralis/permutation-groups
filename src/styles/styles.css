@@ -3,4 +3,6 @@
   grid-template-columns: 24rem 1fr;
 }
 
-.
+.Diagram {
+  justify-self: center;
+}

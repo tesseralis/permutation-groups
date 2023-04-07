@@ -1,24 +1,44 @@
 import * as React from "react";
 
 export default function DiagramPage() {
-  return <div className="DiagramPage">
-    <Sidebar />
-    <Diagram />
-  </div>;
+  const [numElements, setNumElements] = React.useState(6);
+  return (
+    <div className="DiagramPage">
+      <Sidebar numElements={numElements} setNumElements={setNumElements} />
+      <Diagram numElements={numElements} />
+    </div>
+  );
 }
 
-function Sidebar() {
-  return <section />
+function Sidebar({ numElements, setNumElements }) {
+  return (
+    <section>
+      <label>
+        number of elements
+        <input
+          type="number"
+          value={numElements}
+          onChange={(e) => setNumElements(+e.target.value)}
+          min={1}
+        />
+      </label>
+    </section>
+  );
 }
 
-function Diagram() {
-  const n = 12;
+function Diagram({ numElements }) {
+  const n = numElements;
   const radius = 250;
   return (
-    <svg width={600} height={600} viewBox="-300 -300 600 600">
+    <svg
+      className="Diagram"
+      width={600}
+      height={600}
+      viewBox="-300 -300 600 600"
+    >
       {[...Array(n).keys()].map((i) => {
-        const x = radius * Math.cos((i * 2 * Math.PI) / n);
-        const y = radius * Math.sin((i * 2 * Math.PI) / n);
+        const x = radius * Math.cos((i * 2 * Math.PI) / n - Math.PI/2);
+        const y = radius * Math.sin((i * 2 * Math.PI) / n - Math.PI/2);
 
         return (
           <g transform={`translate(${x}, ${y})`}>
