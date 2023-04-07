@@ -3,7 +3,7 @@ export function parseCycleNotation(cyclesString) {
 }
 
 function parseGenerator(generator) {
-  return [...generator.matchAll(/\(([^)]+)\)/g)].map(x => x[1].split(' ').map(i => +i))
+  return [...generator.matchAll(/\(([^)]+)\)/g)].map(x => x[1].split(/ |,/g).map(i => +i))
 }
 
 export function applyGenerator(generator, points) {
