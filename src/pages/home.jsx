@@ -79,8 +79,9 @@ function Diagram({ numElements, generators, points }) {
           </g>
         );
       })}
-      {points.map((p, i) => {
-        const [x, y] = getCoordinates(i+1, n, radius);
+      {points.map((i, _p) => {
+        const p = _p + 1
+        const [x, y] = getCoordinates(i, n, radius);
         return (
           <g key={p} transform={`translate(${x}, ${y})`}>
             <circle stroke="grey" strokeWidth={1} fill="white" r={20}></circle>
