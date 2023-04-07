@@ -1,11 +1,12 @@
 import * as React from "react";
+import { parseCycleNotation } from "../util"
 
 export default function DiagramPage() {
   const [numElements, setNumElements] = React.useState(6);
-  const [generators, setGenerators] = React.useState("")
+  const [generators, setGenerators] = React.useState("(1 2 3)\n(4 5 6)")
   return (
     <div className="DiagramPage">
-      <Sidebar numElements={numElements} setNumElements={setNumElements} />
+      <Sidebar numElements={numElements} setNumElements={setNumElements} generators={generators} setGenerators={setGenerators} />
       <Diagram numElements={numElements} />
     </div>
   );
