@@ -14,6 +14,5 @@ import About from "../pages/about";
 export default () => (
     <Switch>
       <Route path="/" component={Home} />
-      <Route path="/about" component={About} />
     </Switch>
 );
