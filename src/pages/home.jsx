@@ -14,7 +14,7 @@ function Sidebar({ numElements, setNumElements }) {
   return (
     <section>
       <label>
-        number of elements
+        <div>number of elements</div>
         <input
           type="number"
           value={numElements}
@@ -41,7 +41,7 @@ function Diagram({ numElements }) {
         const y = radius * Math.sin((i * 2 * Math.PI) / n - Math.PI/2);
 
         return (
-          <g transform={`translate(${x}, ${y})`}>
+          <g key={i} transform={`translate(${x}, ${y})`}>
             <circle stroke="grey" strokeWidth={1} fill="none" r={20}></circle>
             <text textAnchor="middle" dominantBaseline="middle">
               {i + 1}
