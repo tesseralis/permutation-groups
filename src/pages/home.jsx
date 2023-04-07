@@ -1,10 +1,11 @@
 import * as React from "react";
 import { parseCycleNotation } from "../util";
 import { schemeCategory10 } from "d3-scale-chromatic";
+import _ from 'lodash'
 
 export default function DiagramPage() {
   const [numElements, setNumElements] = React.useState(6);
-  const [generators, setGenerators] = React.useState("(1 2 3)\n(4 5 6)");
+  const [generators, setGenerators] = React.useState("(1 2 3)\n(1 4 5 6)");
   return (
     <div className="DiagramPage">
       <Sidebar
