@@ -27,6 +27,7 @@ function Sidebar({ numElements, setNumElements, generators, setGenerators }) {
       <label>
         <div>Generators (in cycle notation, one generator per line)</div>
         <textarea value={generators} onChange={e => setGenerators(e.target.value)}/>
+        {JSON.stringify(parseCycleNotation(generators))}
       </label>
     </section>
   );
