@@ -2,6 +2,7 @@ import * as React from "react";
 
 export default function DiagramPage() {
   const [numElements, setNumElements] = React.useState(6);
+  const [generators, setGenerators] = React.useState("")
   return (
     <div className="DiagramPage">
       <Sidebar numElements={numElements} setNumElements={setNumElements} />
@@ -10,17 +11,21 @@ export default function DiagramPage() {
   );
 }
 
-function Sidebar({ numElements, setNumElements }) {
+function Sidebar({ numElements, setNumElements, generators, setGenerators }) {
   return (
     <section>
       <label>
-        <div>number of elements</div>
+        <div>Number of elements</div>
         <input
           type="number"
           value={numElements}
           onChange={(e) => setNumElements(+e.target.value)}
           min={1}
         />
+      </label>
+      <label>
+        <div>Generators (in cycle notation, one generator per line)</div>
+        <textarea value={generators} onChange={e => setGenerators(e.target.value)}/>
       </label>
     </section>
   );
