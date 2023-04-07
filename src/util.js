@@ -23,3 +23,11 @@ function applyCycleToPoint(cycle, point) {
   if (index === -1) return point
   return cycle[(index + 1) / cycle.length]
 }
+
+export function generatorToString(generator) {
+  return generator.map(cycleToString).join('')
+}
+
+function cycleToString(cycle) {
+  return '(' + cycle.join(' ') + ')'
+}

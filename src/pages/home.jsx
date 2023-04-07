@@ -1,5 +1,5 @@
 import * as React from "react";
-import { parseCycleNotation } from "../util";
+import { parseCycleNotation, generatorToString, applyGenerator } from "../util";
 import { schemeCategory10 } from "d3-scale-chromatic";
 import _ from 'lodash'
 
@@ -8,6 +8,10 @@ export default function DiagramPage() {
   const [points, setPoints] = React.useState(_.range(1, 6+1))
   const [generators, setGenerators] = React.useState("(1 2 3)\n(1 4 5 6)");
   const setNumElements = (n) => setPoints(_.range(1, n+1))
+  const doApplyGenerator = (generator) => {
+    console.log(applyGenerator(generator, points))
+    setPoints(p => applyGenerator(generator, p))
+  }
   return (
     <div className="DiagramPage">
       <Sidebar
@@ -15,6 +19,7 @@ export default function DiagramPage() {
         setNumElements={setNumElements}
         generators={generators}
         setGenerators={setGenerators}
+        applyGenerator={doApplyGenerator}
       />
       <Diagram
         points={points}
@@ -25,7 +30,7 @@ export default function DiagramPage() {
   );
 }
 
-function Sidebar({ numElements, setNumElements, generators, setGenerators }) {
+function Sidebar({ numElements, setNumElements, generators, setGenerators, applyGenerator }) {
   return (
     <section>
       <label>
@@ -44,6 +49,11 @@ function Sidebar({ numElements, setNumElements, generators, setGenerators }) {
           onChange={(e) => setGenerators(e.target.value)}
         />
       </label>
+      <div>
+        {parseCycleNotation(generators).map(generator => {
+          return  <div>{generatorToString(generator)}<button onClick={() => applyGenerator(generator)}>Apply</button></div>
+        })}
+      </div>
     </section>
   );
 }
