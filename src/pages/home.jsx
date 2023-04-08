@@ -4,12 +4,20 @@ import { schemeCategory10 } from "d3-scale-chromatic";
 import _ from 'lodash'
 
 export default function DiagramPage() {
-  // const [numElements, setNumElements] = React.useState(6);
+  const params = new URL(document.location).searchParams;
+  const gens = params.get("generators") || "(1 2 3)\n(1 4 5 6)"
   const [points, setPoints] = React.useState(_.range(1, 6+1))
-  const [generators, setGenerators] = React.useState("(1 2 3)\n(1 4 5 6)");
+  const [generators, setGenerators] = React.useState(gens);
   const setNumElements = (n) => setPoints(_.range(1, n+1))
   const doApplyGenerator = (generator) => {
     setPoints(p => applyGenerator(generator, p))
+  }
+  
+  const doSetGenerators = (generators) => {
+    setGenerators(generators)
+    const maxPoint = _.max(parseCycleNotation(generators).flat().flat())
+    setPoints(_.range(1, maxPoint + 1))
+    params.set("generators", generators)
   }
   return (
     <div className="DiagramPage">
@@ -17,11 +25,11 @@ export default function DiagramPage() {
         numElements={points.length}
         setNumElements={setNumElements}
         generators={generators}
-        setGenerators={setGenerators}
+        setGenerators={doSetGenerators}
         applyGenerator={doApplyGenerator}
       />
       <Diagram
-        key={points.length}
+        key={generators}
         points={points}
         numElements={points.length}
         generators={parseCycleNotation(generators)}
@@ -33,15 +41,6 @@ export default function DiagramPage() {
 function Sidebar({ numElements, setNumElements, generators, setGenerators, applyGenerator }) {
   return (
     <section>
-      <label>
-        <div>Number of elements</div>
-        <input
-          type="number"
-          value={numElements}
-          onChange={(e) => setNumElements(+e.target.value)}
-          min={1}
-        />
-      </label>
       <label>
         <div>Generators (in cycle notation, one generator per line)</div>
         <textarea
