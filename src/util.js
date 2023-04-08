@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 export function parseCycleNotation(cyclesString) {
   return cyclesString.split('\n').filter(x => !!x).map(parseGenerator)
 }
@@ -30,4 +32,9 @@ export function generatorToString(generator) {
 
 function cycleToString(cycle) {
   return '(' + cycle.join(' ') + ')'
+}
+
+export function pointsFromGenerators(generators) {
+  const maxPoint = _.max(generators.flat().flat())
+  return _.range(1, maxPoint + 1)
 }

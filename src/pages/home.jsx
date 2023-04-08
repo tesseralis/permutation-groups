@@ -1,13 +1,13 @@
 import * as React from "react";
-import { parseCycleNotation, generatorToString, applyGenerator } from "../util";
+import { parseCycleNotation, generatorToString, applyGenerator, pointsFromGenerators } from "../util";
 import { schemeCategory10 } from "d3-scale-chromatic";
 import _ from 'lodash'
 
 export default function DiagramPage() {
   const params = new URL(document.location).searchParams;
-  const gens = params.get("generators") || "(1 2 3)\n(1 4 5 6)"
-  const [points, setPoints] = React.useState(_.range(1, 6+1))
-  const [generators, setGenerators] = React.useState(gens);
+  const paramGens = params.get("generators") || "(1 2 3)\n(1 4 5 6)"
+  const [generators, setGenerators] = React.useState(paramGens);
+  const [points, setPoints] = React.useState(pointsFromGenerators(parseCycleNotation(generators)))
   const setNumElements = (n) => setPoints(_.range(1, n+1))
   const doApplyGenerator = (generator) => {
     setPoints(p => applyGenerator(generator, p))
@@ -15,9 +15,10 @@ export default function DiagramPage() {
   
   const doSetGenerators = (generators) => {
     setGenerators(generators)
-    const maxPoint = _.max(parseCycleNotation(generators).flat().flat())
-    setPoints(_.range(1, maxPoint + 1))
+    setPoints(pointsFromGenerators(parseCycleNotation(generators)))
     params.set("generators", generators)
+    const newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + params.toString();
+    window.history.pushState({path:newurl},'',newurl);
   }
   return (
     <div className="DiagramPage">
