@@ -14,13 +14,19 @@ import tinycolor from "tinycolor2";
 export default function Diagram({ generators, points, hoveredCycle }) {
   const n = points.length;
   const radius = 250;
-  const selectedPoints = getSelectedPoints(generators, hoveredCycle)
+  const selectedPoints = getSelectedPoints(generators, hoveredCycle);
+  const selectedColor = hoveredCycle
+    ? schemeCategory10[hoveredCycle[0]]
+    : "lightgrey";
   return (
     <svg
       className="Diagram"
       width={600}
       height={600}
       viewBox="-300 -300 600 600"
+      style={{
+        "--selected-color": selectedColor,
+      }}
     >
       {generators.map((generator, j) => {
         return (
@@ -35,9 +41,13 @@ export default function Diagram({ generators, points, hoveredCycle }) {
                 hoveredCycle &&
                 hoveredCycle[0] === j &&
                 (_.isNil(hoveredCycle[1]) || hoveredCycle[1] === k);
-              const isInverse = hoveredCycle && !!hoveredCycle[2]
+              const isInverse = hoveredCycle && !!hoveredCycle[2];
               return (
-                <g className="cycle" data-selected={isHovered} data-inverse={isInverse}>
+                <g
+                  className="cycle"
+                  data-selected={isHovered}
+                  data-inverse={isInverse}
+                >
                   <polygon
                     stroke="currentColor"
                     fill="none"
@@ -76,9 +86,13 @@ export default function Diagram({ generators, points, hoveredCycle }) {
         );
       })}
       {_.range(1, points.length + 1).map((p) => {
-        const isSelected = selectedPoints.includes(p)
+        const isSelected = selectedPoints.includes(p);
         const [x, y] = getCoordinates(p, n, radius);
-        return <g transform={`translate(${x}, ${y})`}><circle className="slot" data-selected={isSelected} fill="lightgrey" r={20}></circle></g>;
+        return (
+          <g transform={`translate(${x}, ${y})`}>
+            <circle className="slot" data-selected={isSelected} r={20}></circle>
+          </g>
+        );
       })}
       {points.map((i, _p) => {
         const p = _p + 1;
@@ -126,11 +140,11 @@ function brightenColor(color) {
 
 function getSelectedPoints(generators, selected) {
   if (!selected) {
-    return []
+    return [];
   }
-  const gen = generators[selected[0]]
+  const gen = generators[selected[0]];
   if (!selected[1]) {
-    return gen.flat()
+    return gen.flat();
   }
-  return gen[selected[1]]
+  return gen[selected[1]];
 }

@@ -134,16 +134,19 @@ button:hover {
   scale: 1.5;
 }
 
-.Diagram .cycle[data-inverse="true"] .arrow {
+.Diagram .cycle[data-selected="true"][data-inverse="true"] .arrow {
   rotate: 180deg;
 }
 
 .Diagram .slot {
-  transition: transform 150ms;
+  fill: lightgrey;
+  transition: all 150ms;
 }
 
 .Diagram .slot[data-selected="true"] {
-  scale: 1.25;
+  fill: var(--selected-color);
+  scale: 1.125;
+  filter: drop-shadow(0 0 1px var(--selected-color));
 }
 
 .Point {
