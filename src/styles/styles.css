@@ -20,19 +20,22 @@ p {
 }
 
 .DiagramPage {
-  height: 100%;
+  position: absolute;
+  inset: 0;
   display: grid;
-  grid-template-columns: 24rem 1fr;
+  grid-template-columns: 30rem 1fr;
 }
 
 .Sidebar {
   height: 100vh;
   overflow-y: scroll;
+  padding: 1rem 1rem;
 }
 
 
 .Diagram {
   justify-self: center;
+  align-self: center;
 }
 
 .Point {

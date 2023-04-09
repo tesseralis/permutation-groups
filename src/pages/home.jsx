@@ -13,6 +13,7 @@ import { schemeCategory10 } from "d3-scale-chromatic";
 import _ from "lodash";
 import Diagram from '../components/Diagram'
 import SampleGroups from "../components/SampleGroups"
+import Operations from "../components/Operations"
 
 export default function DiagramPage() {
   const params = new URL(document.location).searchParams;
@@ -86,22 +87,11 @@ function Sidebar({
         <div>Generators (in cycle notation, one generator per line)</div>
         <textarea
           placeholder="(1 2 3)&#10;(1 2)"
-          value={generators}
+          value={generatorsString}
           onChange={(e) => setGenerators(e.target.value)}
         />
       </label>
-      <div>
-        <h2>Operations</h2>
-        {generators.map((generator) => {
-          return (
-            <div>
-              {generatorToString(generator)}
-              <button onClick={() => applyGenerator(generator)}>Apply</button>
-            </div>
-          );
-        })}
-        <button onClick={() => setPoints(points => randomize(points, generators))}>Scramble!</button>
-      </div>
+      <Operations generators={generators} applyGenerator={applyGenerator} setPoints={setPoints} />
       <SampleGroups setGenerators={setGenerators} />
     </section>
   );
