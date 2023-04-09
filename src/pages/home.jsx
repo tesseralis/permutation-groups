@@ -22,6 +22,7 @@ export default function DiagramPage() {
   const [points, setPoints] = React.useState(
     pointsFromGenerators(parseCycleNotation(generators))
   );
+  const [hoveredCycle, setHoveredCycle] = React.useState(null)
   const setNumElements = (n) => setPoints(_.range(1, n + 1));
   const doApplyGenerator = (generator) => {
     setPoints((p) => applyGenerator(generator, p));
@@ -49,12 +50,14 @@ export default function DiagramPage() {
         setGenerators={doSetGenerators}
         applyGenerator={doApplyGenerator}
         setPoints={setPoints}
+        setHoveredCycle={setHoveredCycle}
       />
       <Diagram
         key={generators}
         points={points}
         numElements={points.length}
         generators={parseCycleNotation(generators)}
+        hoveredCycle={hoveredCycle}
       />
     </div>
   );
@@ -67,6 +70,7 @@ function Sidebar({
   setPoints,
   setGenerators,
   applyGenerator,
+  setHoveredCycle,
 }) {
   const generators = parseCycleNotation(generatorsString);
   return (
@@ -97,6 +101,7 @@ function Sidebar({
         generators={generators}
         applyGenerator={applyGenerator}
         setPoints={setPoints}
+        setHovered={setHoveredCycle}
       />
       <h2>Sample Groups</h2>
       <SampleGroups setGenerators={setGenerators} />

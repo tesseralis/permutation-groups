@@ -5,10 +5,15 @@ import {
   isInvolution,
   randomize,
 } from "../util";
-import tinycolor from "tinycolor2"
+import tinycolor from "tinycolor2";
 import { schemeCategory10 } from "d3-scale-chromatic";
 
-export default function Operations({ generators, applyGenerator, setPoints }) {
+export default function Operations({
+  generators,
+  applyGenerator,
+  setPoints,
+  setHovered,
+}) {
   return (
     <div className="Operations">
       <div className="grid">
@@ -39,8 +44,17 @@ export default function Operations({ generators, applyGenerator, setPoints }) {
                 </button>
               )}
               <div className="permutation">
-                {generator.map((cycle) => {
-                  return <span className="cycle">{cycleToString(cycle)}</span>;
+                {generator.map((cycle, j) => {
+                  return (
+                    <span
+                      className="cycle"
+                      onMouseOver={() => {
+                        setHovered([i, j]);
+                      }}
+                    >
+                      {cycleToString(cycle)}
+                    </span>
+                  );
                 })}
               </div>
             </div>
@@ -59,5 +73,5 @@ export default function Operations({ generators, applyGenerator, setPoints }) {
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz";
 function lighten(color) {
-  return tinycolor(color).lighten(40).toString()
+  return tinycolor(color).setAlpha(0.2).toString();
 }

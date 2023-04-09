@@ -73,6 +73,10 @@ button:hover {
   border-color: var(--operation-color);
 }
 
+.Operations .applyBtn:hover {
+  background: var(--operation-bg);
+}
+
 .Operations .applyBtn sup {
   font-size: 0.65em;
 }
@@ -86,6 +90,7 @@ button:hover {
   cursor: default;
   padding: 2px 4px;
   border-radius: 9999px;
+  transition: background-color 150ms;
 }
 
 .Operations .cycle:hover {

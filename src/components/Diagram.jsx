@@ -9,9 +9,10 @@ import {
   randomize,
 } from "../util";
 import _ from "lodash";
+import tinycolor from "tinycolor2"
 
-export default function Diagram({ numElements, generators, points }) {
-  const n = numElements;
+export default function Diagram({ generators, points, hoveredCycle }) {
+  const n = points.length;
   const radius = 250;
   return (
     <svg
@@ -23,9 +24,10 @@ export default function Diagram({ numElements, generators, points }) {
       {generators.map((generator, j) => {
         return (
           <g color={schemeCategory10[j]}>
-            {generator.map((cycle) => {
+            {generator.map((cycle, k) => {
+              const isHovered = hoveredCycle && (hoveredCycle[0] === j && hoveredCycle[1] === k)
               return (
-                <>
+                <g color={isHovered ? brightenColor(schemeCategory10[j]) : 'inherit'}>
                   <polygon
                     stroke="currentColor"
                     strokeWidth={2}
@@ -57,7 +59,7 @@ export default function Diagram({ numElements, generators, points }) {
                         </g>
                       );
                     })}
-                </>
+                </g>
               );
             })}
           </g>
@@ -105,4 +107,8 @@ function getCoordinates(i, n, radius) {
 
 function midpoint(u, v) {
   return [(u[0] + v[0]) / 2, (u[1] + v[1]) / 2];
+}
+
+function brightenColor(color) {
+  return tinycolor(color).brighten().toHexString();
 }
