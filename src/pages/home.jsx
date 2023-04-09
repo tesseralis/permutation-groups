@@ -8,21 +8,21 @@ import {
   cyclePairs,
   randomize,
 } from "../util";
+import useSearchParams from "../useSearchParams";
 
-import { parseGroupName } from "../groups"
+import { parseGroupName } from "../groups";
 
 import { schemeCategory10 } from "d3-scale-chromatic";
 import _ from "lodash";
 import Diagram from "../components/Diagram";
 import SampleGroups from "../components/SampleGroups";
 import Operations from "../components/Operations";
-import { setSearchParams, getGenerators } from '../searchParams'
-import { useLocation } from "wouter"
+import { setSearchParams, getGenerators } from "../searchParams";
+import { useLocation } from "wouter";
 
 export default function DiagramPage() {
-  const params = new URL(window.location).searchParams;
-  const paramGens = getGenerators(params);
-  const [generators, setGenerators] = React.useState(paramGens);
+  const [params, setSearchParams] = useSearchParams();
+  const generators = getGenerators(params);
   const [points, setPoints] = React.useState(
     pointsFromGenerators(parseCycleNotation(generators))
   );
@@ -33,20 +33,18 @@ export default function DiagramPage() {
   };
 
   const doSetGenerators = (generators) => {
-    setGenerators(generators);
     setPoints(pointsFromGenerators(parseCycleNotation(generators)));
-    setSearchParams({ generators })
+    setSearchParams({ generators });
   };
-  
+
   const setGroup = (name) => {
-      const generators = generatorsToString(parseGroupName(name))
-      setGenerators(generators);
-      setPoints(pointsFromGenerators(parseCycleNotation(generators)));
-    setSearchParams({ group: name })
-  }
-  
+    const generators = generatorsToString(parseGroupName(name));
+    setPoints(pointsFromGenerators(parseCycleNotation(generators)));
+    setSearchParams({ group: name });
+  };
+
   return (
-    <div className="DiagramPage">
+    <div className="DiagramPage" key={generators}>
       <Sidebar
         numElements={points.length}
         setNumElements={setNumElements}
@@ -89,8 +87,8 @@ function Sidebar({
         <a href="https://en.wikipedia.org/wiki/Permutation_group">
           permutation group
         </a>{" "}
-        given a set of generators. Click the circular buttons or the lines in the diagram to apply that operation (or
-        its inverse) on the elements.
+        given a set of generators. Click the circular buttons or the lines in
+        the diagram to apply that operation (or its inverse) on the elements.
       </p>
       <p>
         Click the "Scramble" button to scramble all the elements and try to put
