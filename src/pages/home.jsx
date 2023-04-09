@@ -17,9 +17,10 @@ import Diagram from "../components/Diagram";
 import SampleGroups from "../components/SampleGroups";
 import Operations from "../components/Operations";
 import { setSearchParams, getGenerators } from '../searchParams'
+import { useLocation } from "wouter"
 
 export default function DiagramPage() {
-  const params = new URL(document.location).searchParams;
+  const params = new URL(window.location).searchParams;
   const paramGens = getGenerators(params);
   const [generators, setGenerators] = React.useState(paramGens);
   const [points, setPoints] = React.useState(
