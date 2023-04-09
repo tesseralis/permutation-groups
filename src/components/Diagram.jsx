@@ -14,6 +14,7 @@ import tinycolor from "tinycolor2";
 export default function Diagram({ generators, points, hoveredCycle }) {
   const n = points.length;
   const radius = 250;
+  const selectedPoints = getSelectedPoints(generators, hoveredCycle)
   return (
     <svg
       className="Diagram"
@@ -34,8 +35,9 @@ export default function Diagram({ generators, points, hoveredCycle }) {
                 hoveredCycle &&
                 hoveredCycle[0] === j &&
                 (_.isNil(hoveredCycle[1]) || hoveredCycle[1] === k);
+              const isInverse = hoveredCycle && !!hoveredCycle[2]
               return (
-                <g className="cycle" data-selected={isHovered}>
+                <g className="cycle" data-selected={isHovered} data-inverse={isInverse}>
                   <polygon
                     stroke="currentColor"
                     fill="none"
@@ -74,8 +76,9 @@ export default function Diagram({ generators, points, hoveredCycle }) {
         );
       })}
       {_.range(1, points.length + 1).map((p) => {
+        const isSelected = selectedPoints.includes(p)
         const [x, y] = getCoordinates(p, n, radius);
-        return <circle cx={x} cy={y} fill="lightgrey" r={20}></circle>;
+        return <g transform={`translate(${x}, ${y})`}><circle className="slot" data-selected={isSelected} fill="lightgrey" r={20}></circle></g>;
       })}
       {points.map((i, _p) => {
         const p = _p + 1;
@@ -119,4 +122,15 @@ function midpoint(u, v) {
 
 function brightenColor(color) {
   return tinycolor(color).brighten(15).toHexString();
+}
+
+function getSelectedPoints(generators, selected) {
+  if (!selected) {
+    return []
+  }
+  const gen = generators[selected[0]]
+  if (!selected[1]) {
+    return gen.flat()
+  }
+  return gen[selected[1]]
 }
