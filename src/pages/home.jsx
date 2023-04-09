@@ -9,12 +9,14 @@ import {
   randomize,
 } from "../util";
 
+import { parseGroupName } from "../groups"
+
 import { schemeCategory10 } from "d3-scale-chromatic";
 import _ from "lodash";
 import Diagram from "../components/Diagram";
 import SampleGroups from "../components/SampleGroups";
 import Operations from "../components/Operations";
-import { getGenerators } from '../searchParams'
+import { setSearchParams, getGenerators } from '../searchParams'
 
 export default function DiagramPage() {
   const params = new URL(document.location).searchParams;
@@ -32,17 +34,13 @@ export default function DiagramPage() {
   const doSetGenerators = (generators) => {
     setGenerators(generators);
     setPoints(pointsFromGenerators(parseCycleNotation(generators)));
-    params.delete('group')
-    params.set("generators", generators);
-    const newurl =
-      window.location.protocol +
-      "//" +
-      window.location.host +
-      window.location.pathname +
-      "?" +
-      params.toString();
-    window.history.pushState({ path: newurl }, "", newurl);
+    setSearchParams({ generators })
   };
+  
+  const setGroup = (name) => {
+      setGenerators(parseGroupName(group))
+  }
+  
   return (
     <div className="DiagramPage">
       <Sidebar

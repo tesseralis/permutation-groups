@@ -1,53 +1,34 @@
 import {
-  cyclicGroup,
-  abelianGroup,
-  symmetricGroup,
-  alternatingGroup,
-  dihedralGroup,
-  dicyclicGroup,
-  mathieuGroup,
+  parseGroupName
 } from "./groups";
 
-import { generatorsToString } from "./util"
+import { generatorsToString } from "./util";
 
 const DEFAULT_GENERATORS = "(1 2 3)\n(4 5 6)\n(1 6)(3 4)";
 
+// Set URL params to the given raw object
+export function setSearchParams(params) {
+  const newParams = new URLSearchParams(params);
+  const newurl =
+    window.location.protocol +
+    "//" +
+    window.location.host +
+    window.location.pathname +
+    "?" +
+    newParams.toString();
+  window.history.pushState({ path: newurl }, "", newurl);
+}
+
 export function getGenerators(params = {}) {
-  if (params.has('group')) {
-    const group = parseGroupName(params.get('group'))
+  if (params.has("group")) {
+    const group = parseGroupName(params.get("group"));
     // parse the family name and return the generators of the corresponding group
-     if (group) {
-       return generatorsToString(group)
-     }
+    if (group) {
+      return generatorsToString(group);
+    }
   }
-  if (params.has('generators')) {
-    return params.get('generators');
+  if (params.has("generators")) {
+    return params.get("generators");
   }
   return DEFAULT_GENERATORS;
 }
-
-function parseGroupName(name) {
-  const abelian = parseAbelian(name);
-  if (abelian) return abelian;
-  const match = name.match(/^([A-Z][a-z]*)([0-9]+)$/);
-  if (!match) return;
-  const family = families.find((f) => f.symbol === match[1]);
-  if (!family) return;
-  return family.generatorFn(+match[2]);
-}
-
-function parseAbelian(name) {
-  const match = name.match(/^(?:C[0-9]+_)+C[0-9]+$/)
-  if (!match) return
-  const ns = name.split('_').map(n => +n.slice(1))
-  return abelianGroup(ns)
-}
-
-const families = [
-  { symbol: "C", generatorFn: cyclicGroup },
-  { symbol: "D", generatorFn: dihedralGroup },
-  { symbol: "Dic", generatorFn: dicyclicGroup },
-  { symbol: "M", generatorFn: mathieuGroup },
-  { symbol: "S", generatorFn: symmetricGroup },
-  { symbol: "A", generatorFn: alternatingGroup },
-];
