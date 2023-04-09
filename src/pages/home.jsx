@@ -11,9 +11,9 @@ import {
 
 import { schemeCategory10 } from "d3-scale-chromatic";
 import _ from "lodash";
-import Diagram from '../components/Diagram'
-import SampleGroups from "../components/SampleGroups"
-import Operations from "../components/Operations"
+import Diagram from "../components/Diagram";
+import SampleGroups from "../components/SampleGroups";
+import Operations from "../components/Operations";
 
 export default function DiagramPage() {
   const params = new URL(document.location).searchParams;
@@ -68,7 +68,7 @@ function Sidebar({
   setGenerators,
   applyGenerator,
 }) {
-  const generators = parseCycleNotation(generatorsString)
+  const generators = parseCycleNotation(generatorsString);
   return (
     <section className="Sidebar">
       <h1>Permutation Group Visualizer</h1>
@@ -81,7 +81,8 @@ function Sidebar({
         operation on the elements.
       </p>
       <p>
-        Click the "Scramble" button to scramble all the elements and try to put them back in order!
+        Click the "Scramble" button to scramble all the elements and try to put
+        them back in order!
       </p>
       <label>
         <div>Generators (in cycle notation, one generator per line)</div>
@@ -91,7 +92,13 @@ function Sidebar({
           onChange={(e) => setGenerators(e.target.value)}
         />
       </label>
-      <Operations generators={generators} applyGenerator={applyGenerator} setPoints={setPoints} />
+      <h2>Operations</h2>
+      <Operations
+        generators={generators}
+        applyGenerator={applyGenerator}
+        setPoints={setPoints}
+      />
+      <h2>Sample Groups</h2>
       <SampleGroups setGenerators={setGenerators} />
     </section>
   );

@@ -27,7 +27,7 @@ p {
 }
 
 .Sidebar {
-  height: 100vh;
+  height: 100%;
   overflow-y: scroll;
   padding: 1rem 1rem;
 }

@@ -18,7 +18,6 @@ import {
 
 export default function SampleGroups({ setGenerators }) {
   return <div>
-        <h2>Sample Groups</h2>
         <h3>Cyclic Groups</h3>
         <p>Just a cycle.</p>
         {_.range(2, 13).map((n) => {
