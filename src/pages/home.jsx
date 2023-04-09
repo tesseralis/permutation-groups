@@ -13,6 +13,7 @@ import {
   symmetricGroup,
   alternatingGroup,
   dihedralGroup,
+  mathieuGroup,
 } from "../groups";
 import { schemeCategory10 } from "d3-scale-chromatic";
 import _ from "lodash";
@@ -148,6 +149,19 @@ function Sidebar({
               }
             >
               A<sub>{n}</sub>
+            </button>
+          );
+        })}
+        <h3>Mathieu Groups</h3>
+        <p>Smallest of the sporadic groups.</p>
+        {[11,12,22,23,24].map((n) => {
+          return (
+            <button
+              onClick={() =>
+                setGenerators(generatorsToString(mathieuGroup(n)))
+              }
+            >
+              M<sub>{n}</sub>
             </button>
           );
         })}
