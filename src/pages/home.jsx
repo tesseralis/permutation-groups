@@ -14,10 +14,11 @@ import _ from "lodash";
 import Diagram from "../components/Diagram";
 import SampleGroups from "../components/SampleGroups";
 import Operations from "../components/Operations";
+import { getGenerators } from '../searchParams'
 
 export default function DiagramPage() {
   const params = new URL(document.location).searchParams;
-  const paramGens = params.get("generators") || "(1 2 3)\n(1 4 5 6)";
+  const paramGens = getGenerators(params);
   const [generators, setGenerators] = React.useState(paramGens);
   const [points, setPoints] = React.useState(
     pointsFromGenerators(parseCycleNotation(generators))
