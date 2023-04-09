@@ -11,7 +11,7 @@ import {
 import _ from "lodash";
 import tinycolor from "tinycolor2";
 
-export default function Diagram({ generators, points, hoveredCycle }) {
+export default function Diagram({ generators, points, hoveredCycle, setHoveredCycle }) {
   const n = points.length;
   const radius = 250;
   const selectedPoints = getSelectedPoints(generators, hoveredCycle);
@@ -41,23 +41,27 @@ export default function Diagram({ generators, points, hoveredCycle }) {
                 hoveredCycle &&
                 hoveredCycle[0] === j &&
                 (_.isNil(hoveredCycle[1]) || hoveredCycle[1] === k);
-              const isInverse = hoveredCycle && !!hoveredCycle[2];
+              const isInverse = isHovered && !!hoveredCycle[2];
+              const polygonPoints = cycle
+                      .map((i) => {
+                        const [x, y] = getCoordinates(i, n, radius - 2 * j);
+                        return `${x},${y}`;
+                      })
+                      .join(" ")
               return (
                 <g
                   className="cycle"
                   data-selected={isHovered}
                   data-inverse={isInverse}
                 >
+                  
                   <polygon
+                    className="path"
                     stroke="currentColor"
                     fill="none"
-                    points={cycle
-                      .map((i) => {
-                        const [x, y] = getCoordinates(i, n, radius - 2 * j);
-                        return `${x},${y}`;
-                      })
-                      .join(" ")}
+                    points={polygonPoints}
                   />
+                  
                   {cycle.length > 2 &&
                     cyclePairs(cycle).map(([a, b]) => {
                       const u = getCoordinates(a, n, radius - 2 * j);
@@ -143,7 +147,7 @@ function getSelectedPoints(generators, selected) {
     return [];
   }
   const gen = generators[selected[0]];
-  if (!selected[1]) {
+  if (_.isNil(selected[1])) {
     return gen.flat();
   }
   return gen[selected[1]];

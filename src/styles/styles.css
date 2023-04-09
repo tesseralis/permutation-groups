@@ -120,12 +120,12 @@ button:hover {
   color: var(--operation-hl);
 }
 
-.Diagram .cycle polygon {
+.Diagram .cycle .path {
   stroke-width: 2;
   transition: all 150ms;
 }
 
-.Diagram .cycle[data-selected="true"] polygon {
+.Diagram .cycle[data-selected="true"] .path {
   stroke-width: 4;
   filter: drop-shadow(0 0 1px hsl(0 0% 75}%));
 }
@@ -134,7 +134,7 @@ button:hover {
   scale: 1.5;
 }
 
-.Diagram .cycle[data-selected="true"][data-inverse="true"] .arrow {
+.Diagram .cycle[data-inverse="true"] .arrow {
   rotate: 180deg;
 }
 

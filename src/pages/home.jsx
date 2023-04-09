@@ -58,6 +58,7 @@ export default function DiagramPage() {
         numElements={points.length}
         generators={parseCycleNotation(generators)}
         hoveredCycle={hoveredCycle}
+        setHoveredCycle={setHoveredCycle}
       />
     </div>
   );
@@ -81,8 +82,8 @@ function Sidebar({
         <a href="https://en.wikipedia.org/wiki/Permutation_group">
           permutation group
         </a>{" "}
-        given a set of generators. Click the "Apply" button to apply that
-        operation on the elements.
+        given a set of generators. Click the buttons to apply that
+        operation (or its inverse) on the elements.
       </p>
       <p>
         Click the "Scramble" button to scramble all the elements and try to put
