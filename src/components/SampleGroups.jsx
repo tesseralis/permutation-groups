@@ -13,22 +13,34 @@ import {
   symmetricGroup,
   alternatingGroup,
   dihedralGroup,
+  dicyclicGroup,
   mathieuGroup,
 } from "../groups";
 
 export default function SampleGroups({ setGenerators }) {
   return (
     <div className="SampleGroups">
-      {families.map(({title, description, range, generators }) => {
-        return <div>
-          <h3>{title}</h3>
-          <p>{description}</p>
-          <div className="list">
-          {range.map(n => {
-            return <button onClick={() => setGenerators(generatorsToString(generators(n)))}>{title[0]}<sub>{n}</sub></button>
-          })}
+      {families.map(({ title, description, range, generators, symbol = title[0] }) => {
+        return (
+          <div>
+            <h3>{title}</h3>
+            <p>{description}</p>
+            <div className="list">
+              {range.map((n) => {
+                return (
+                  <button
+                    onClick={() =>
+                      setGenerators(generatorsToString(generators(n)))
+                    }
+                  >
+                    {symbol}
+                    <sub>{n}</sub>
+                  </button>
+                );
+              })}
+            </div>
           </div>
-          </div>
+        );
       })}
     </div>
   );
@@ -57,16 +69,23 @@ const families = [
     range: _.range(3, 13),
     generators: symmetricGroup,
   },
-    {
+  {
     title: "Alternating Groups",
     description: "Half the permutations. (the even ones)",
     range: _.range(4, 13),
     generators: alternatingGroup,
   },
-      {
+  {
+    title: "Dicyclic Groups",
+    symbol: 'Dic',
+    description: "Quaternions n' friends.",
+    range: _.range(2, 7),
+    generators: dicyclicGroup,
+  },
+  {
     title: "Mathieu Groups",
     description: "Smallest of the sporadic groups.",
-    range: [11,12,22,23,24],
+    range: [11, 12, 22, 23, 24],
     generators: mathieuGroup,
   },
 ];

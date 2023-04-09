@@ -21,6 +21,16 @@ export function dihedralGroup(n) {
   ];
 }
 
+export function dicyclicGroup(n) {
+  return [
+    [
+      [1, 2 * n + 1, n + 1, 3 * n + 1],
+      ..._.range(2, n + 1).map((i) => [i, 4 * n - i + 2, n + i, 3 * n - i + 2]),
+    ],
+    [_.range(1, 2 * n + 1), _.range(2 * n + 1, 4 * n + 1)],
+  ];
+}
+
 export function mathieuGroup(n) {
   switch (n) {
     case 11:
