@@ -63,13 +63,14 @@ button:hover {
 .Operations .applyBtn {
   font-family: serif;
   font-size: 1.125rem;
+  text-align: center;
+  vertical-align: middle;
 
   width: 32px;
   aspect-ratio: 1 / 1;
   border-width: 1.5px;
   border-radius: 9999px;
-  text-align: center;
-  vertical-align: middle;
+  border-color: var(--operation-color);
 }
 
 .Operations .applyBtn sup {
@@ -79,11 +80,16 @@ button:hover {
 .Operations .permutation {
   display: flex;
   flex-wrap: wrap;
-  gap: 0 0.25rem;
+}
+
+.Operations .cycle {
+  cursor: default;
+  padding: 2px 4px;
+  border-radius: 9999px;
 }
 
 .Operations .cycle:hover {
-  background-color: lightgrey;
+  background-color: var(--operation-bg);
 }
 
 .Operations .scrambleBtn {
