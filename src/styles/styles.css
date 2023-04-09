@@ -1,3 +1,7 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
 h2, h3 {
   margin-bottom: 0;
   font-weight: 600;
@@ -16,9 +20,16 @@ p {
 }
 
 .DiagramPage {
+  height: 100%;
   display: grid;
   grid-template-columns: 24rem 1fr;
 }
+
+.Sidebar {
+  height: 100vh;
+  overflow-y: scroll;
+}
+
 
 .Diagram {
   justify-self: center;
