@@ -51,7 +51,7 @@ button:hover {
 .Operations .grid {
   display: grid;
   grid-template-columns: 2rem 2rem 1fr;
-  gap: 1rem 0.25rem;
+  gap: 1rem 0.5rem;
   margin: 1rem 0;
   align-items: center;
 }
@@ -60,7 +60,7 @@ button:hover {
   font-family: serif;
   font-size: 1.125rem;
 
-  width: 28px;
+  width: 32px;
   aspect-ratio: 1 / 1;
   border-width: 1.5px;
   border-radius: 9999px;
@@ -69,7 +69,7 @@ button:hover {
 }
 
 .Operations .applyBtn sup {
-  font-size: 0.5em;
+  font-size: 0.65em;
 }
 
 .Operations .operation {

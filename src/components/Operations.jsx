@@ -1,4 +1,4 @@
-import { cycleToString, applyGenerator, randomize } from "../util";
+import { cycleToString, applyGenerator, inversePermutation, isInvolution, randomize } from "../util";
 import { schemeCategory10 } from "d3-scale-chromatic";
 
 export default function Operations({ generators, applyGenerator, setPoints }) {
@@ -13,16 +13,16 @@ export default function Operations({ generators, applyGenerator, setPoints }) {
                 style={{ borderColor: schemeCategory10[i] }}
                 onClick={() => applyGenerator(generator)}
               >
-                {alphabet[i]}
+                <em>{alphabet[i]}</em>
               </button>
-              <button
+              {isInvolution(generator) ? <div /> : <button
                 className="applyBtn"
                 style={{ borderColor: schemeCategory10[i] }}
-                onClick={() => applyGenerator(generator)}
+                onClick={() => applyGenerator(inversePermutation(generator))}
               >
-                {alphabet[i]}
+                <em>{alphabet[i]}</em>
                 <sup>-1</sup>
-              </button>
+              </button>}
               <div className="operation">
                 {generator.map((cycle) => {
                   return <span>{cycleToString(cycle)}</span>;
