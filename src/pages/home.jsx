@@ -118,7 +118,7 @@ function Diagram({ numElements, generators, points }) {
                       })
                       .join(" ")}
                   />
-                  {cyclePairs(cycle).map(([a, b]) => {
+                  {cycle.length > 2 && cyclePairs(cycle).map(([a, b]) => {
                     const u = getCoordinates(a, n, radius - 2 * j)
                     const v = getCoordinates(b, n, radius - 2 * j)
                     const position = midpoint(u, v)
@@ -133,6 +133,11 @@ function Diagram({ numElements, generators, points }) {
             })}
           </g>
         );
+      })}
+      {_.range(1, points.length+1).map(p => {
+        const [x, y] = getCoordinates(p, n, radius);
+        return <circle cx={x} cy={y} fill="lightgrey" r={20}> 
+        </circle>
       })}
       {points.map((i, _p) => {
         const p = _p + 1;
