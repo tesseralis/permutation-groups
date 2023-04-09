@@ -9,8 +9,9 @@ export default function Operations({ generators, applyGenerator, setPoints }) {
           return (
             <>
               <button 
+                className="applyBtn"
                 style={{ borderColor: schemeCategory10[i]}}
-                onClick={() => applyGenerator(generator)}>Apply</button>
+                onClick={() => applyGenerator(generator)}>{alphabet[i]}</button>
               <div className="operation">{generator.map(cycle => {
                   return <span>{cycleToString(cycle)}</span>
                 })}</div>
@@ -26,3 +27,5 @@ export default function Operations({ generators, applyGenerator, setPoints }) {
     </div>
   );
 }
+
+const alphabet = 'abcdefghijklmnopqrstuvwxyz'
