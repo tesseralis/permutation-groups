@@ -10,6 +10,7 @@ import {
 import _ from "lodash";
 import {
   cyclicGroup,
+  abelianGroup,
   symmetricGroup,
   alternatingGroup,
   dihedralGroup,
@@ -34,8 +35,7 @@ export default function SampleGroups({ setGenerators }) {
                         setGenerators(generatorsToString(generators(n)))
                       }
                     >
-                      {symbol}
-                      <sub>{n}</sub>
+                      {getSymbol(symbol, n)}
                     </button>
                   );
                 })}
@@ -48,12 +48,28 @@ export default function SampleGroups({ setGenerators }) {
   );
 }
 
+function getSymbol(symbol, n) {
+  if (typeof symbol === 'function') {
+    return symbol(n)
+  }
+  return <>{symbol}<sub>{n}</sub></>
+}
+
 const families = [
   {
     title: "Cyclic Groups",
     description: "Just a cycle.",
     range: _.range(2, 13),
     generators: cyclicGroup,
+  },
+  {
+    title: 'Abelian Groups',
+    description: 'They always commute.',
+    range: [[2,2], [2,2,2], [2,4], [3,3], [2,2,3]],
+    generators: abelianGroup,
+    symbol: ns => {
+      return <>{ns.map(n => <span>C<sub>{n}</sub></span>).flatMap((cn, i) => i === 0 ? [cn] : [' × ', cn])}</>
+    }
   },
   {
     title: "Dihedral Groups",

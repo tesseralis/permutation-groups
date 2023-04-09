@@ -5,7 +5,16 @@ export function cyclicGroup(n) {
   return [[_.range(1, n + 1)]];
 }
 
-// Abelian group of the form C_a
+// Abelian group of the form C_{n1} x C_{n2} ... x C_{n_k}
+export function abelianGroup(ns) {
+  let i = 1;
+  const gens = []
+  for (const n of ns) {
+    gens.push([_.range(i, i+n)])
+    i += n;
+  }
+  return gens;
+}
 
 export function symmetricGroup(n) {
   return [[_.range(1, n + 1)], [[1, 2]]];
