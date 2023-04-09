@@ -1,0 +1,15 @@
+import _ from "lodash"
+
+// Generators for a cyclic group of order n
+export function cyclicGroup(n) {
+  return [_.range(1, n + 1)]
+}
+
+export function symmetricGroup(n) {
+  return [_.range(1, n + 1), [1, 2]]
+}
+
+export function alternatingGroup(n) {
+  return [_.range(1, n + (n % 2 === 1 ? 1 : 0)), _.range(n - 2, n + 1)]
+}
+
