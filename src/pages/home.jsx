@@ -118,10 +118,14 @@ function Diagram({ numElements, generators, points }) {
                       })
                       .join(" ")}
                   />
-                  {cyclePairs(cycle).map(([u, v]) => {
-                    const position = midpoint(getCoordinates(u, n, radius - 2 * j), getCoordinates(v, n, radius - 2 * j))
-                    return <g transform={`translate(${position[0]}, ${position[1]})`}>
-                      <polygon 
+                  {cyclePairs(cycle).map(([a, b]) => {
+                    const u = getCoordinates(a, n, radius - 2 * j)
+                    const v = getCoordinates(b, n, radius - 2 * j)
+                    const position = midpoint(u, v)
+                    const angle = Math.atan2(u[1]-v[1], u[0]-v[0]) / (2 * Math.PI) * 360
+                    const arrowRad = 5
+                    return <g transform={`translate(${position[0]}, ${position[1]})rotate(${angle})`}>
+                      <polygon points={`-${arrowRad},0 ${arrowRad},${arrowRad} ${arrowRad},-${arrowRad}`} fill="currentColor"/>
                       </g>;
                   })}
                 </>
