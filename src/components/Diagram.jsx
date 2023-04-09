@@ -27,10 +27,9 @@ export default function Diagram({ generators, points, hoveredCycle }) {
             {generator.map((cycle, k) => {
               const isHovered = hoveredCycle && (hoveredCycle[0] === j && hoveredCycle[1] === k)
               return (
-                <g color={isHovered ? brightenColor(schemeCategory10[j]) : 'inherit'}>
+                <g className="cycle" data-selected={isHovered} color={isHovered ? brightenColor(schemeCategory10[j]) : 'inherit'}>
                   <polygon
                     stroke="currentColor"
-                    strokeWidth={2}
                     fill="none"
                     points={cycle
                       .map((i) => {
@@ -110,5 +109,5 @@ function midpoint(u, v) {
 }
 
 function brightenColor(color) {
-  return tinycolor(color).brighten().toHexString();
+  return tinycolor(color).brighten(10).toHexString();
 }

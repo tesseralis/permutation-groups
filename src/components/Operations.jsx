@@ -51,6 +51,9 @@ export default function Operations({
                       onMouseOver={() => {
                         setHovered([i, j]);
                       }}
+                      onMouseOut={() => {
+                        setHovered(null);
+                      }}
                     >
                       {cycleToString(cycle)}
                     </span>

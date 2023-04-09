@@ -106,10 +106,23 @@ button:hover {
   gap: 0.5rem;
 }
 
-
 .Diagram {
   justify-self: center;
   align-self: center;
+}
+
+.Diagram g.cycle {
+  transition: color 150ms;
+}
+
+.Diagram .cycle polygon {
+  stroke-width: 2;
+  transition: all 150ms;
+}
+
+.Diagram .cycle[data-selected="true"] polygon {
+  stroke-width: 4;
+  filter: drop-shadow(0 0 1px hsl(0 0% 75%));
 }
 
 .Point {
