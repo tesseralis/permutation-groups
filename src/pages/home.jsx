@@ -73,6 +73,7 @@ function Sidebar({
       <label>
         <div>Generators (in cycle notation, one generator per line)</div>
         <textarea
+          placeholder="(1 2 3)&#10;(1 2)"
           value={generators}
           onChange={(e) => setGenerators(e.target.value)}
         />
