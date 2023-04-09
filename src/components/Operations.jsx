@@ -3,14 +3,16 @@ import { generatorToString, applyGenerator, randomize } from "../util";
 export default function Operations({ generators, applyGenerator, setPoints }) {
   return (
     <div className="Operations">
-      {generators.map((generator) => {
-        return (
-          <div>
-            {generatorToString(generator)}
-            <button onClick={() => applyGenerator(generator)}>Apply</button>
-          </div>
-        );
-      })}
+      <div className="grid">
+        {generators.map((generator) => {
+          return (
+            <>
+              <button onClick={() => applyGenerator(generator)}>Apply</button>
+              <div>{generatorToString(generator)}</div>
+            </>
+          );
+        })}
+      </div>
       <button
         onClick={() => setPoints((points) => randomize(points, generators))}
       >

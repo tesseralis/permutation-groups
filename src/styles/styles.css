@@ -19,6 +19,12 @@ p {
   margin: 0.5rem 0;
 }
 
+button {
+  background: white;
+  border: 1px solid grey;
+  
+}
+
 .DiagramPage {
   position: absolute;
   inset: 0;
@@ -30,6 +36,13 @@ p {
   height: 100%;
   overflow-y: scroll;
   padding: 1rem 1rem;
+}
+
+.Operations .grid {
+  display: grid;
+  grid-template-columns: 4rem 1fr;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 
