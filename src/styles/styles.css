@@ -125,7 +125,7 @@ button:hover {
   color: var(--operation-hl);
 }
 
-.Diagram[data-hasSelection="true"] .cycle[data-selected="false"] {
+.Diagram[data-has-selection="true"] .cycle[data-selected="false"] {
   opacity: 0.5;
 }
 

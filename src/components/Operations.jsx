@@ -21,6 +21,7 @@ export default function Operations({
         {generators.map((generator, i) => {
           return (
             <div
+              key={i}
               className="gridRow"
               style={{
                 "--operation-color": schemeCategory10[i],
@@ -60,6 +61,7 @@ export default function Operations({
                 {generator.map((cycle, j) => {
                   return (
                     <span
+                      key={j}
                       className="cycle"
                       onMouseOver={() => {
                         setHovered([i, j]);

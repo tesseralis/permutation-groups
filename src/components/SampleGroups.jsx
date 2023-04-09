@@ -17,6 +17,7 @@ import {
   dicyclicGroup,
   mathieuGroup,
 } from "../groups";
+import { Fragment } from "react"
 
 export default function SampleGroups({ setGenerators }) {
   return (
@@ -24,13 +25,14 @@ export default function SampleGroups({ setGenerators }) {
       {families.map(
         ({ title, description, range, generators, symbol = title[0] }) => {
           return (
-            <div>
+            <div key={title}>
               <h3>{title}</h3>
               <p>{description}</p>
               <div className="list">
                 {range.map((n) => {
                   return (
                     <button
+                      key={n}
                       onClick={() =>
                         setGenerators(generatorsToString(generators(n)))
                       }
@@ -68,7 +70,7 @@ const families = [
     range: [[2,2], [2,2,2], [2,4], [3,3], [2,2,3]],
     generators: abelianGroup,
     symbol: ns => {
-      return <>{ns.map(n => <span>C<sub>{n}</sub></span>).flatMap((cn, i) => i === 0 ? [cn] : [' × ', cn])}</>
+      return <>{ns.map((n, i) => <span key={i}>C<sub>{n}</sub></span>).flatMap((cn, i) => i === 0 ? [cn] : [' × ', cn])}</>
     }
   },
   {

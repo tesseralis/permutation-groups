@@ -3,6 +3,7 @@ import {
   parseCycleNotation,
   generatorsToString,
   generatorToString,
+  cycleToString,
   applyGenerator,
   pointsFromGenerators,
   cyclePairs,
@@ -31,7 +32,7 @@ export default function Diagram({
       width={600}
       height={600}
       viewBox="-300 -300 600 600"
-      data-hasSelection={hasSelection}
+      data-has-selection={hasSelection}
       style={{
         "--selected-color": selectedColor,
       }}
@@ -39,6 +40,7 @@ export default function Diagram({
       {generators.map((generator, j) => {
         return (
           <g
+            key={j}
             style={{
               "--operation-color": schemeCategory10[j],
               "--operation-hl": brightenColor(schemeCategory10[j]),
@@ -58,6 +60,7 @@ export default function Diagram({
                 .join(" ");
               return (
                 <g
+                  key={cycleToString(cycle)}
                   className="cycle"
                   data-selected={isHovered}
                   data-inverse={isInverse}
@@ -80,6 +83,7 @@ export default function Diagram({
                       const arrowRad = 5;
                       return (
                         <g
+                          key={a+' '+b}
                           transform={`translate(${position[0]}, ${position[1]})rotate(${angle})`}
                         >
                           <polygon
@@ -93,7 +97,7 @@ export default function Diagram({
                   <polygon
                     className="hoverZone"
                     stroke="transparent"
-                    stroke-width={7.5}
+                    strokeWidth={7.5}
                     fill="none"
                     points={polygonPoints}
                     onMouseOver={() => setHoveredCycle([j])}
@@ -110,7 +114,7 @@ export default function Diagram({
         const isSelected = selectedPoints.includes(p);
         const [x, y] = getCoordinates(p, n, radius);
         return (
-          <g transform={`translate(${x}, ${y})`}>
+          <g key={p} transform={`translate(${x}, ${y})`}>
             <circle className="slot" data-selected={isSelected} r={20}></circle>
             <circle fill="lightgrey" r={20}></circle>
           </g>
