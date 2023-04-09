@@ -7,7 +7,7 @@ import {
   cyclePairs,
   randomize,
 } from "../util";
-import _ from 'lodash'
+import _ from "lodash";
 import {
   cyclicGroup,
   symmetricGroup,
@@ -17,71 +17,56 @@ import {
 } from "../groups";
 
 export default function SampleGroups({ setGenerators }) {
-  return <div>
-        <h3>Cyclic Groups</h3>
-        <p>Just a cycle.</p>
-        {_.range(2, 13).map((n) => {
-          return (
-            <button
-              onClick={() => setGenerators(generatorsToString(cyclicGroup(n)))}
-            >
-              C<sub>{n}</sub>
-            </button>
-          );
-        })}
-        <h3>Dihedral Groups</h3>
-        <p>
-          Symmetries of an <em>n</em>-gon.
-        </p>
-        {_.range(3, 13).map((n) => {
-          return (
-            <button
-              onClick={() =>
-                setGenerators(generatorsToString(dihedralGroup(n)))
-              }
-            >
-              D<sub>{n}</sub>
-            </button>
-          );
-        })}
-        <h3>Symmetric Groups</h3>
-        <p>All the permutations.</p>
-        {_.range(3, 13).map((n) => {
-          return (
-            <button
-              onClick={() =>
-                setGenerators(generatorsToString(symmetricGroup(n)))
-              }
-            >
-              S<sub>{n}</sub>
-            </button>
-          );
-        })}
-        <h3>Alternating Groups</h3>
-        <p>Half the permutations (the even ones).</p>
-        {_.range(4, 13).map((n) => {
-          return (
-            <button
-              onClick={() =>
-                setGenerators(generatorsToString(alternatingGroup(n)))
-              }
-            >
-              A<sub>{n}</sub>
-            </button>
-          );
-        })}
-        <h3>Mathieu Groups</h3>
-        <p>Smallest of the sporadic groups.</p>
-        {[11,12,22,23,24].map((n) => {
-          return (
-            <button
-              onClick={() =>
-                setGenerators(generatorsToString(mathieuGroup(n)))
-              }
-            >
-              M<sub>{n}</sub>
-            </button>
-          );
-        })}
-      </div>
+  return (
+    <div className="SampleGroups">
+      {families.map(({title, description, range, generators }) => {
+        return <div>
+          <h3>{title}</h3>
+          <p>{description}</p>
+          <div className="list">
+          {range.map(n => {
+            return <button onClick={() => setGenerators(generatorsToString(generators(n)))}>{title[0]}<sub>{n}</sub></button>
+          })}
+          </div>
+          </div>
+      })}
+    </div>
+  );
 }
+
+const families = [
+  {
+    title: "Cyclic Groups",
+    description: "Just a cycle.",
+    range: _.range(2, 13),
+    generators: cyclicGroup,
+  },
+  {
+    title: "Dihedral Groups",
+    description: (
+      <span>
+        Symmetries of an <em>n</em>-gon.
+      </span>
+    ),
+    range: _.range(2, 13),
+    generators: dihedralGroup,
+  },
+  {
+    title: "Symmetric Groups",
+    description: "All the permutations.",
+    range: _.range(3, 13),
+    generators: symmetricGroup,
+  },
+    {
+    title: "Alternating Groups",
+    description: "Half the permutations. (the even ones)",
+    range: _.range(4, 13),
+    generators: alternatingGroup,
+  },
+      {
+    title: "Mathieu Groups",
+    description: "Smallest of the sporadic groups.",
+    range: [11,12,22,23,24],
+    generators: mathieuGroup,
+  },
+];
