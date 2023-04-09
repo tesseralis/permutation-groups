@@ -16,6 +16,10 @@ export function applyGenerator(generator, points) {
   return result
 }
 
+export function cyclePairs(cycle) {
+  return cycle.map((p, i) => [p, cycle[(i + 1) % cycle.length]])
+}
+
 function applyCycle(cycle, points) {
   return points.map(p => applyCycleToPoint(cycle, p))
 }
