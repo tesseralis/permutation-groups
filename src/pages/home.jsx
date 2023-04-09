@@ -22,7 +22,7 @@ export default function DiagramPage() {
   const [points, setPoints] = React.useState(
     pointsFromGenerators(parseCycleNotation(generators))
   );
-  const [hoveredCycle, setHoveredCycle] = React.useState(null)
+  const [hoveredCycle, setHoveredCycle] = React.useState(null);
   const setNumElements = (n) => setPoints(_.range(1, n + 1));
   const doApplyGenerator = (generator) => {
     setPoints((p) => applyGenerator(generator, p));
@@ -57,6 +57,7 @@ export default function DiagramPage() {
         points={points}
         numElements={points.length}
         generators={parseCycleNotation(generators)}
+        applyGenerator={doApplyGenerator}
         hoveredCycle={hoveredCycle}
         setHoveredCycle={setHoveredCycle}
       />
@@ -82,8 +83,8 @@ function Sidebar({
         <a href="https://en.wikipedia.org/wiki/Permutation_group">
           permutation group
         </a>{" "}
-        given a set of generators. Click the buttons to apply that
-        operation (or its inverse) on the elements.
+        given a set of generators. Click the circular buttons or the lines in the diagram to apply that operation (or
+        its inverse) on the elements.
       </p>
       <p>
         Click the "Scramble" button to scramble all the elements and try to put

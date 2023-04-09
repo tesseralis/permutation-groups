@@ -144,9 +144,13 @@ button:hover {
 }
 
 .Diagram .slot[data-selected="true"] {
-  fill: var(--selected-color);
   scale: 1.125;
-  filter: drop-shadow(0 0 1px var(--selected-color));
+  fill: var(--selected-color);
+  filter: drop-shadow(0 0 2px var(--selected-color));
+}
+
+.Diagram .hoverZone {
+  cursor: pointer;
 }
 
 .Point {

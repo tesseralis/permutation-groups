@@ -11,7 +11,13 @@ import {
 import _ from "lodash";
 import tinycolor from "tinycolor2";
 
-export default function Diagram({ generators, points, hoveredCycle, setHoveredCycle }) {
+export default function Diagram({
+  generators,
+  applyGenerator,
+  points,
+  hoveredCycle,
+  setHoveredCycle,
+}) {
   const n = points.length;
   const radius = 250;
   const selectedPoints = getSelectedPoints(generators, hoveredCycle);
@@ -43,25 +49,24 @@ export default function Diagram({ generators, points, hoveredCycle, setHoveredCy
                 (_.isNil(hoveredCycle[1]) || hoveredCycle[1] === k);
               const isInverse = isHovered && !!hoveredCycle[2];
               const polygonPoints = cycle
-                      .map((i) => {
-                        const [x, y] = getCoordinates(i, n, radius - 2 * j);
-                        return `${x},${y}`;
-                      })
-                      .join(" ")
+                .map((i) => {
+                  const [x, y] = getCoordinates(i, n, radius - 2 * j);
+                  return `${x},${y}`;
+                })
+                .join(" ");
               return (
                 <g
                   className="cycle"
                   data-selected={isHovered}
                   data-inverse={isInverse}
                 >
-                  
                   <polygon
                     className="path"
                     stroke="currentColor"
                     fill="none"
                     points={polygonPoints}
                   />
-                  
+
                   {cycle.length > 2 &&
                     cyclePairs(cycle).map(([a, b]) => {
                       const u = getCoordinates(a, n, radius - 2 * j);
@@ -83,6 +88,16 @@ export default function Diagram({ generators, points, hoveredCycle, setHoveredCy
                         </g>
                       );
                     })}
+                  <polygon
+                    className="hoverZone"
+                    stroke="transparent"
+                    stroke-width={7.5}
+                    fill="none"
+                    points={polygonPoints}
+                    onMouseOver={() => setHoveredCycle([j])}
+                    onMouseOut={() => setHoveredCycle(null)}
+                    onClick={() => applyGenerator(generators[j], points)}
+                  />
                 </g>
               );
             })}
@@ -95,6 +110,7 @@ export default function Diagram({ generators, points, hoveredCycle, setHoveredCy
         return (
           <g transform={`translate(${x}, ${y})`}>
             <circle className="slot" data-selected={isSelected} r={20}></circle>
+            <circle fill="lightgrey" r={20}></circle>
           </g>
         );
       })}
