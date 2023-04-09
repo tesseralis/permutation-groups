@@ -84,6 +84,9 @@ function Sidebar({
         given a set of generators. Click the "Apply" button to apply that
         operation on the elements.
       </p>
+      <p>
+        Click the "Scramble" button to scramble all the elements and try to put them back in order!
+      </p>
       <label>
         <div>Generators (in cycle notation, one generator per line)</div>
         <textarea
@@ -102,7 +105,7 @@ function Sidebar({
             </div>
           );
         })}
-        <button onClick={() => setPoints(points => randomize(points, generators))}>Randomize!</button>
+        <button onClick={() => setPoints(points => randomize(points, generators))}>Scramble!</button>
       </div>
       <div>
         <h2>Sample Groups</h2>
