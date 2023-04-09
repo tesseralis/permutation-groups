@@ -1,14 +1,19 @@
-import { generatorToString, applyGenerator, randomize } from "../util";
+import { cycleToString, applyGenerator, randomize } from "../util";
+import { schemeCategory10 } from "d3-scale-chromatic";
 
 export default function Operations({ generators, applyGenerator, setPoints }) {
   return (
     <div className="Operations">
       <div className="grid">
-        {generators.map((generator) => {
+        {generators.map((generator, i) => {
           return (
             <>
-              <button onClick={() => applyGenerator(generator)}>Apply</button>
-              <div>{generatorToString(generator)}</div>
+              <button 
+                style={{ borderColor: schemeCategory10[i]}}
+                onClick={() => applyGenerator(generator)}>Apply</button>
+              <div className="operation">{generator.map(cycle => {
+                  return <span>{cycleToString(cycle)}</span>
+                })}</div>
             </>
           );
         })}

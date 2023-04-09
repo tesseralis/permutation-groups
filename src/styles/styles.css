@@ -21,8 +21,8 @@ p {
 
 button {
   background: white;
-  border: 1.25px solid grey;
-  box-shadow: 0 0 3px 1px hsl(0, 0%, 0%, 0.1);
+  border: 1.25px solid lightgrey;
+  box-shadow: 0 1px 4px 1px hsl(0, 0%, 0%, 0.1);
   transition: background 150ms;
   cursor: pointer;
 }
@@ -49,6 +49,12 @@ button:hover {
   grid-template-columns: 4rem 1fr;
   gap: 0.5rem;
   margin-bottom: 1rem;
+}
+
+.Operations .operation {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.25rem;
 }
 
 .SampleGroups .list {

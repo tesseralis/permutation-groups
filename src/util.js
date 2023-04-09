@@ -39,7 +39,7 @@ export function generatorToString(generator) {
   return generator.map(cycleToString).join("");
 }
 
-function cycleToString(cycle) {
+export function cycleToString(cycle) {
   return "(" + cycle.join(" ") + ")";
 }
 
