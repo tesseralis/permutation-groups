@@ -113,11 +113,15 @@ button:hover {
 
 .Diagram g.cycle {
   color: var(--operation-color);
-  transition: color 150ms;
+  transition: all 150ms;
 }
 
 .Diagram g.cycle[data-selected="true"] {
   color: var(--operation-hl);
+}
+
+.Diagram[data-hasSelection="true"] .cycle[data-selected="false"] {
+  opacity: 0.5;
 }
 
 .Diagram .cycle .path {

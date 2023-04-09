@@ -20,28 +20,30 @@ import {
 export default function SampleGroups({ setGenerators }) {
   return (
     <div className="SampleGroups">
-      {families.map(({ title, description, range, generators, symbol = title[0] }) => {
-        return (
-          <div>
-            <h3>{title}</h3>
-            <p>{description}</p>
-            <div className="list">
-              {range.map((n) => {
-                return (
-                  <button
-                    onClick={() =>
-                      setGenerators(generatorsToString(generators(n)))
-                    }
-                  >
-                    {symbol}
-                    <sub>{n}</sub>
-                  </button>
-                );
-              })}
+      {families.map(
+        ({ title, description, range, generators, symbol = title[0] }) => {
+          return (
+            <div>
+              <h3>{title}</h3>
+              <p>{description}</p>
+              <div className="list">
+                {range.map((n) => {
+                  return (
+                    <button
+                      onClick={() =>
+                        setGenerators(generatorsToString(generators(n)))
+                      }
+                    >
+                      {symbol}
+                      <sub>{n}</sub>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        }
+      )}
     </div>
   );
 }
@@ -77,7 +79,7 @@ const families = [
   },
   {
     title: "Dicyclic Groups",
-    symbol: 'Dic',
+    symbol: "Dic",
     description: "Quaternions n' friends.",
     range: _.range(2, 7),
     generators: dicyclicGroup,

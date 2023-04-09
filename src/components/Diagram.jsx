@@ -20,6 +20,7 @@ export default function Diagram({
 }) {
   const n = points.length;
   const radius = 250;
+  const hasSelection = !!hoveredCycle;
   const selectedPoints = getSelectedPoints(generators, hoveredCycle);
   const selectedColor = hoveredCycle
     ? schemeCategory10[hoveredCycle[0]]
@@ -30,6 +31,7 @@ export default function Diagram({
       width={600}
       height={600}
       viewBox="-300 -300 600 600"
+      data-hasSelection={hasSelection}
       style={{
         "--selected-color": selectedColor,
       }}
