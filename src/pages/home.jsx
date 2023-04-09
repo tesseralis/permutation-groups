@@ -17,8 +17,7 @@ import _ from "lodash";
 import Diagram from "../components/Diagram";
 import SampleGroups from "../components/SampleGroups";
 import Operations from "../components/Operations";
-import { setSearchParams, getGenerators } from "../searchParams";
-import { useLocation } from "wouter";
+import { getGenerators } from "../searchParams";
 
 export default function DiagramPage() {
   const [params, setSearchParams] = useSearchParams();
@@ -26,25 +25,29 @@ export default function DiagramPage() {
   const [points, setPoints] = React.useState(
     pointsFromGenerators(parseCycleNotation(generators))
   );
+  const [prevGenerators, setPrevGenerators] = React.useState(generators)
   const [hoveredCycle, setHoveredCycle] = React.useState(null);
   const setNumElements = (n) => setPoints(_.range(1, n + 1));
   const doApplyGenerator = (generator) => {
     setPoints((p) => applyGenerator(generator, p));
   };
+  
+  // Reset points if generators changes
+  if (generators !== prevGenerators) {
+    setPrevGenerators(generators)
+    setPoints(pointsFromGenerators(parseCycleNotation(generators)))
+  }
 
   const doSetGenerators = (generators) => {
-    setPoints(pointsFromGenerators(parseCycleNotation(generators)));
     setSearchParams({ generators });
   };
 
   const setGroup = (name) => {
-    const generators = generatorsToString(parseGroupName(name));
-    setPoints(pointsFromGenerators(parseCycleNotation(generators)));
     setSearchParams({ group: name });
   };
 
   return (
-    <div className="DiagramPage" key={generators}>
+    <div className="DiagramPage">
       <Sidebar
         numElements={points.length}
         setNumElements={setNumElements}
