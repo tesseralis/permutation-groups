@@ -112,7 +112,12 @@ button:hover {
 }
 
 .Diagram g.cycle {
+  color: var(--operation-color);
   transition: color 150ms;
+}
+
+.Diagram g.cycle[data-selected="true"] {
+  color: var(--operation-hl);
 }
 
 .Diagram .cycle polygon {
@@ -123,6 +128,10 @@ button:hover {
 .Diagram .cycle[data-selected="true"] polygon {
   stroke-width: 4;
   filter: drop-shadow(0 0 1px hsl(0 0% 75}%));
+}
+
+.Diagram .cycle[data-selected="true"] .arrow {
+  scale: 1.5;
 }
 
 .Point {

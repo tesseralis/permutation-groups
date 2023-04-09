@@ -29,6 +29,12 @@ export default function Operations({
               <button
                 className="applyBtn"
                 onClick={() => applyGenerator(generator)}
+                onMouseOver={() => {
+                  setHovered([i]);
+                }}
+                onMouseOut={() => {
+                  setHovered(null);
+                }}
               >
                 <em>{alphabet[i]}</em>
               </button>
@@ -38,6 +44,12 @@ export default function Operations({
                 <button
                   className="applyBtn"
                   onClick={() => applyGenerator(inversePermutation(generator))}
+                  onMouseOver={() => {
+                    setHovered([i, null, true]);
+                  }}
+                  onMouseOut={() => {
+                    setHovered(null);
+                  }}
                 >
                   <em>{alphabet[i]}</em>
                   <sup>-1</sup>

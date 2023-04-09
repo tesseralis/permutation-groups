@@ -9,7 +9,7 @@ import {
   randomize,
 } from "../util";
 import _ from "lodash";
-import tinycolor from "tinycolor2"
+import tinycolor from "tinycolor2";
 
 export default function Diagram({ generators, points, hoveredCycle }) {
   const n = points.length;
@@ -23,11 +23,19 @@ export default function Diagram({ generators, points, hoveredCycle }) {
     >
       {generators.map((generator, j) => {
         return (
-          <g color={schemeCategory10[j]}>
+          <g
+            style={{
+              "--operation-color": schemeCategory10[j],
+              "--operation-hl": brightenColor(schemeCategory10[j]),
+            }}
+          >
             {generator.map((cycle, k) => {
-              const isHovered = hoveredCycle && (hoveredCycle[0] === j && hoveredCycle[1] === k)
+              const isHovered =
+                hoveredCycle &&
+                hoveredCycle[0] === j &&
+                (_.isNil(hoveredCycle[1]) || hoveredCycle[1] === k);
               return (
-                <g className="cycle" data-selected={isHovered} color={isHovered ? brightenColor(schemeCategory10[j]) : 'inherit'}>
+                <g className="cycle" data-selected={isHovered}>
                   <polygon
                     stroke="currentColor"
                     fill="none"
@@ -52,6 +60,7 @@ export default function Diagram({ generators, points, hoveredCycle }) {
                           transform={`translate(${position[0]}, ${position[1]})rotate(${angle})`}
                         >
                           <polygon
+                            className="arrow"
                             points={`-${arrowRad},0 ${arrowRad},${arrowRad} ${arrowRad},-${arrowRad}`}
                             fill="currentColor"
                           />
@@ -109,5 +118,5 @@ function midpoint(u, v) {
 }
 
 function brightenColor(color) {
-  return tinycolor(color).brighten(10).toHexString();
+  return tinycolor(color).brighten(15).toHexString();
 }
