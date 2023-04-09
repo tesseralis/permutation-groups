@@ -1,48 +1,71 @@
-import _ from 'lodash'
+import _ from "lodash";
 
 export function parseCycleNotation(cyclesString) {
-  return cyclesString.split('\n').filter(x => !!x).map(parseGenerator)
+  return cyclesString
+    .split("\n")
+    .filter((x) => !!x)
+    .map(parseGenerator);
 }
 
 function parseGenerator(generator) {
-  return [...generator.matchAll(/\(([^)]+)\)/g)].map(x => x[1].split(/ |,/g).map(i => +i))
+  return [...generator.matchAll(/\(([^)]+)\)/g)].map((x) =>
+    x[1].split(/ |,/g).map((i) => +i)
+  );
 }
 
 export function applyGenerator(generator, points) {
-  let result = [...points]
+  let result = [...points];
   for (const cycle of generator) {
-    result = applyCycle(cycle, result)
+    result = applyCycle(cycle, result);
   }
-  return result
+  return result;
 }
 
 export function cyclePairs(cycle) {
-  return cycle.map((p, i) => [p, cycle[(i + 1) % cycle.length]])
+  return cycle.map((p, i) => [p, cycle[(i + 1) % cycle.length]]);
 }
 
 function applyCycle(cycle, points) {
-  return points.map(p => applyCycleToPoint(cycle, p))
+  return points.map((p) => applyCycleToPoint(cycle, p));
 }
 
 function applyCycleToPoint(cycle, point) {
-  const index = cycle.indexOf(point)
-  if (index === -1) return point
-  return cycle[(index + 1) % cycle.length]
+  const index = cycle.indexOf(point);
+  if (index === -1) return point;
+  return cycle[(index + 1) % cycle.length];
 }
 
 export function generatorToString(generator) {
-  return generator.map(cycleToString).join('')
+  return generator.map(cycleToString).join("");
 }
 
 function cycleToString(cycle) {
-  return '(' + cycle.join(' ') + ')'
+  return "(" + cycle.join(" ") + ")";
 }
 
 export function pointsFromGenerators(generators) {
-  const maxPoint = _.max(generators.flat().flat())
-  return _.range(1, maxPoint + 1)
+  const maxPoint = _.max(generators.flat().flat());
+  return _.range(1, maxPoint + 1);
 }
 
 export function generatorsToString(generators) {
-  return generators.map(generatorToString).join('\n')
+  return generators.map(generatorToString).join("\n");
+}
+
+export function randomize(points, operations) {
+  let tmp = points;
+  for (let i = 0; i < randRange(50, 100); i++) {
+    const gen = operations[randInt(operations.length)];
+    tmp = applyGenerator(gen, tmp);
+    console.log(tmp)
+  }
+  return tmp;
+}
+
+function randInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
+function randRange(min, max) {
+  return randInt(max - min) + min;
 }

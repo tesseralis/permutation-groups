@@ -6,6 +6,7 @@ import {
   applyGenerator,
   pointsFromGenerators,
   cyclePairs,
+  randomize,
 } from "../util";
 
 import {
@@ -51,6 +52,7 @@ export default function DiagramPage() {
         generators={generators}
         setGenerators={doSetGenerators}
         applyGenerator={doApplyGenerator}
+        setPoints={setPoints}
       />
       <Diagram
         key={generators}
@@ -65,12 +67,15 @@ export default function DiagramPage() {
 function Sidebar({
   numElements,
   setNumElements,
-  generators,
+  generators: generatorsString,
+  setPoints,
   setGenerators,
   applyGenerator,
 }) {
+  const generators = parseCycleNotation(generatorsString)
   return (
     <section>
+      <h1>Permutation Group Visualizer</h1>
       <p>
         This app visualizes the operations of a{" "}
         <a href="https://en.wikipedia.org/wiki/Permutation_group">
@@ -89,7 +94,7 @@ function Sidebar({
       </label>
       <div>
         <h2>Operations</h2>
-        {parseCycleNotation(generators).map((generator) => {
+        {generators.map((generator) => {
           return (
             <div>
               {generatorToString(generator)}
@@ -97,6 +102,7 @@ function Sidebar({
             </div>
           );
         })}
+        <button onClick={() => setPoints(points => randomize(points, generators))}>Randomize!</button>
       </div>
       <div>
         <h2>Sample Groups</h2>
