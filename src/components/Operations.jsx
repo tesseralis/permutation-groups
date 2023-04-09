@@ -7,7 +7,7 @@ export default function Operations({ generators, applyGenerator, setPoints }) {
       <div className="grid">
         {generators.map((generator, i) => {
           return (
-            <>
+            <div className="gridRow">
               <button
                 className="applyBtn"
                 style={{ borderColor: schemeCategory10[i] }}
@@ -23,12 +23,12 @@ export default function Operations({ generators, applyGenerator, setPoints }) {
                 <em>{alphabet[i]}</em>
                 <sup>-1</sup>
               </button>}
-              <div className="operation">
+              <div className="permutation">
                 {generator.map((cycle) => {
-                  return <span>{cycleToString(cycle)}</span>;
+                  return <span className="cycle">{cycleToString(cycle)}</span>;
                 })}
               </div>
-            </>
+            </div>
           );
         })}
       </div>

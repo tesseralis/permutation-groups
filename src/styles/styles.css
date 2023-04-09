@@ -56,6 +56,10 @@ button:hover {
   align-items: center;
 }
 
+.Operations .gridRow {
+  display: contents;
+}
+
 .Operations .applyBtn {
   font-family: serif;
   font-size: 1.125rem;
@@ -72,10 +76,14 @@ button:hover {
   font-size: 0.65em;
 }
 
-.Operations .operation {
+.Operations .permutation {
   display: flex;
   flex-wrap: wrap;
   gap: 0 0.25rem;
+}
+
+.Operations .cycle:hover {
+  background-color: lightgrey;
 }
 
 .Operations .scrambleBtn {
