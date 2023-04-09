@@ -52,6 +52,16 @@ export function generatorsToString(generators) {
   return generators.map(generatorToString).join("\n");
 }
 
+export function inversePermutation(permutation) {
+  return permutation.map(cycle => [...cycle].reverse())
+}
+
+// Return whether the permutation is its own inverse
+// NOTE: doesn't work if there are duplicates
+export function isInvolution(permutation) {
+  return permutation.every(cycle => cycle.length === 2)
+}
+
 export function randomize(points, operations) {
   let tmp = points;
   for (let i = 0; i < randRange(50, 100); i++) {

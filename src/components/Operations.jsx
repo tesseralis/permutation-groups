@@ -8,18 +8,32 @@ export default function Operations({ generators, applyGenerator, setPoints }) {
         {generators.map((generator, i) => {
           return (
             <>
-              <button 
+              <button
                 className="applyBtn"
-                style={{ borderColor: schemeCategory10[i]}}
-                onClick={() => applyGenerator(generator)}>{alphabet[i]}</button>
-              <div className="operation">{generator.map(cycle => {
-                  return <span>{cycleToString(cycle)}</span>
-                })}</div>
+                style={{ borderColor: schemeCategory10[i] }}
+                onClick={() => applyGenerator(generator)}
+              >
+                {alphabet[i]}
+              </button>
+              <button
+                className="applyBtn"
+                style={{ borderColor: schemeCategory10[i] }}
+                onClick={() => applyGenerator(generator)}
+              >
+                {alphabet[i]}
+                <sup>-1</sup>
+              </button>
+              <div className="operation">
+                {generator.map((cycle) => {
+                  return <span>{cycleToString(cycle)}</span>;
+                })}
+              </div>
             </>
           );
         })}
       </div>
       <button
+        className="scrambleBtn"
         onClick={() => setPoints((points) => randomize(points, generators))}
       >
         Scramble!
@@ -28,4 +42,4 @@ export default function Operations({ generators, applyGenerator, setPoints }) {
   );
 }
 
-const alphabet = 'abcdefghijklmnopqrstuvwxyz'
+const alphabet = "abcdefghijklmnopqrstuvwxyz";
