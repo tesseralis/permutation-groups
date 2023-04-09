@@ -42,3 +42,7 @@ export function pointsFromGenerators(generators) {
   const maxPoint = _.max(generators.flat().flat())
   return _.range(1, maxPoint + 1)
 }
+
+export function generatorsToString(generators) {
+  return generators.map(generatorToString).join('\n')
+}

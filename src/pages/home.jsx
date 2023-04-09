@@ -1,11 +1,14 @@
 import * as React from "react";
 import {
   parseCycleNotation,
+  generatorsToString,
   generatorToString,
   applyGenerator,
   pointsFromGenerators,
   cyclePairs,
 } from "../util";
+
+import { cyclicGroup, symmetricGroup, alternatingGroup, dihedralGroup } from "../groups"
 import { schemeCategory10 } from "d3-scale-chromatic";
 import _ from "lodash";
 
@@ -79,6 +82,7 @@ function Sidebar({
         />
       </label>
       <div>
+        <h2>Operations</h2>
         {parseCycleNotation(generators).map((generator) => {
           return (
             <div>
@@ -86,6 +90,13 @@ function Sidebar({
               <button onClick={() => applyGenerator(generator)}>Apply</button>
             </div>
           );
+        })}
+      </div>
+      <div>
+        <h2>Sample Groups</h2>
+        <h3>Cyclic Groups</h3>
+        {_.range(2, 11).map(n => {
+          return <button onClick={() => setGenerators(generatorsToString(cyclicGroup(n)))}>C<sub>{n}</sub></button>
         })}
       </div>
     </section>
