@@ -27,11 +27,20 @@ export function getGenerators(params = {}) {
 }
 
 function parseGroupName(name) {
+  const abelian = parseAbelian(name);
+  if (abelian) return abelian;
   const match = name.match(/^([A-Z][a-z]*)([0-9]+)$/);
   if (!match) return;
   const family = families.find((f) => f.symbol === match[1]);
   if (!family) return;
   return family.generatorFn(+match[2]);
+}
+
+function parseAbelian(name) {
+  const match = name.match(/^(?:C[0-9]+_)+C[0-9]+$/)
+  if (!match) return
+  const ns = name.split('_').map(n => +n.slice(1))
+  return abelianGroup(ns)
 }
 
 const families = [

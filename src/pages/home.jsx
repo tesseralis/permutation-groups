@@ -32,6 +32,7 @@ export default function DiagramPage() {
   const doSetGenerators = (generators) => {
     setGenerators(generators);
     setPoints(pointsFromGenerators(parseCycleNotation(generators)));
+    params.delete('group')
     params.set("generators", generators);
     const newurl =
       window.location.protocol +
