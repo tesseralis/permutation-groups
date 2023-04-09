@@ -38,7 +38,10 @@ export default function DiagramPage() {
   };
   
   const setGroup = (name) => {
-      setGenerators(parseGroupName(group))
+      const generators = generatorsToString(parseGroupName(name))
+      setGenerators(generators);
+      setPoints(pointsFromGenerators(parseCycleNotation(generators)));
+    setSearchParams({ group: name })
   }
   
   return (
@@ -51,6 +54,7 @@ export default function DiagramPage() {
         applyGenerator={doApplyGenerator}
         setPoints={setPoints}
         setHoveredCycle={setHoveredCycle}
+        setGroup={setGroup}
       />
       <Diagram
         key={generators}
@@ -73,6 +77,7 @@ function Sidebar({
   setGenerators,
   applyGenerator,
   setHoveredCycle,
+  setGroup,
 }) {
   const generators = parseCycleNotation(generatorsString);
   return (
@@ -106,7 +111,7 @@ function Sidebar({
         setHovered={setHoveredCycle}
       />
       <h2>Sample Groups</h2>
-      <SampleGroups setGenerators={setGenerators} />
+      <SampleGroups setGroup={setGroup} />
     </section>
   );
 }

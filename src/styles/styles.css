@@ -1,3 +1,7 @@
+:root {
+  --text-color: black;
+}
+
 *, *:before, *:after {
   box-sizing: border-box;
 }
@@ -109,6 +113,17 @@ button:hover {
 .SampleGroups .list {
   display: flex;
   gap: 0.5rem;
+}
+
+.SampleGroups .groupLink {
+  /* Style like a button */
+  background: white;
+  border: 1.25px solid lightgrey;
+  box-shadow: 0 1px 4px 1px hsl(0, 0%, 0%, 0.1);
+  transition: background 150ms;
+  cursor: pointer;
+  
+  
 }
 
 .Diagram {

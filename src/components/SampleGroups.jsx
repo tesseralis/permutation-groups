@@ -17,28 +17,32 @@ import {
   dicyclicGroup,
   mathieuGroup,
 } from "../groups";
-import { Fragment } from "react"
+import { Fragment } from "react";
 
-export default function SampleGroups({ setGenerators }) {
+export default function SampleGroups({ setGroup }) {
   return (
     <div className="SampleGroups">
       {families.map(
-        ({ title, description, range, generators, symbol = title[0] }) => {
+        ({ title, description, range, generators, symbol = title[0], path }) => {
           return (
             <div key={title}>
               <h3>{title}</h3>
               <p>{description}</p>
               <div className="list">
                 {range.map((n) => {
+                  const name = path?.(n) ?? symbol + n
                   return (
-                    <button
+                    <a
+                      className="groupLink"
+                      href={`?group=${name}`}
                       key={n}
-                      onClick={() =>
-                        setGenerators(generatorsToString(generators(n)))
-                      }
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setGroup(name);
+                      }}
                     >
                       {getSymbol(symbol, n)}
-                    </button>
+                    </a>
                   );
                 })}
               </div>
@@ -51,10 +55,15 @@ export default function SampleGroups({ setGenerators }) {
 }
 
 function getSymbol(symbol, n) {
-  if (typeof symbol === 'function') {
-    return symbol(n)
+  if (typeof symbol === "function") {
+    return symbol(n);
   }
-  return <>{symbol}<sub>{n}</sub></>
+  return (
+    <>
+      {symbol}
+      <sub>{n}</sub>
+    </>
+  );
 }
 
 const families = [
@@ -65,13 +74,32 @@ const families = [
     generators: cyclicGroup,
   },
   {
-    title: 'Abelian Groups',
-    description: 'They always commute.',
-    range: [[2,2], [2,2,2], [2,4], [3,3], [2,2,3]],
+    title: "Abelian Groups",
+    description: "They always commute.",
+    range: [
+      [2, 2],
+      [2, 2, 2],
+      [2, 4],
+      [3, 3],
+      [2, 2, 3],
+    ],
     generators: abelianGroup,
-    symbol: ns => {
-      return <>{ns.map((n, i) => <span key={i}>C<sub>{n}</sub></span>).flatMap((cn, i) => i === 0 ? [cn] : [' × ', cn])}</>
-    }
+    path: ns => {
+      return ns.map(n => 'C'+n).join('_')
+    },
+    symbol: (ns) => {
+      return (
+        <>
+          {ns
+            .map((n, i) => (
+              <span key={i}>
+                C<sub>{n}</sub>
+              </span>
+            ))
+            .flatMap((cn, i) => (i === 0 ? [cn] : [" × ", cn]))}
+        </>
+      );
+    },
   },
   {
     title: "Dihedral Groups",
