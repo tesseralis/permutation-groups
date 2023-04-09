@@ -97,7 +97,12 @@ button:hover {
   background-color: var(--operation-bg);
 }
 
-.Operations .scrambleBtn {
+.Operations .toolbar {
+  display: flex;
+  gap: 1rem;
+}
+
+.Operations .toolbar button {
   padding: 0.5rem 1rem;
 }
 

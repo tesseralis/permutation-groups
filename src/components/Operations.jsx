@@ -5,7 +5,7 @@ import {
   isInvolution,
   randomize,
 } from "../util";
-import _ from "lodash"
+import _ from "lodash";
 import tinycolor from "tinycolor2";
 import { schemeCategory10 } from "d3-scale-chromatic";
 
@@ -77,19 +77,20 @@ export default function Operations({
           );
         })}
       </div>
-      <div></div>
-      <button
-        className="scrambleBtn"
-        onClick={() => setPoints((points) => _.range(1, points.length))}
-      >
-        Reset
-      </button>
-      <button
-        className="scrambleBtn"
-        onClick={() => setPoints((points) => randomize(points, generators))}
-      >
-        Scramble!
-      </button>
+      <div className="toolbar">
+        <button
+          className="scrambleBtn"
+          onClick={() => setPoints((points) => _.range(1, points.length + 1))}
+        >
+          Reset
+        </button>
+        <button
+          className="scrambleBtn"
+          onClick={() => setPoints((points) => randomize(points, generators))}
+        >
+          Scramble!
+        </button>
+      </div>
     </div>
   );
 }

@@ -125,7 +125,7 @@ export default function Diagram({
             key={p}
             style={{ transform: `translate(${x}px,${y}px)` }}
           >
-            <circle stroke="grey" strokeWidth={1} fill="white" r={20}></circle>
+            <circle stroke="grey" strokeWidth={1} fill={`hsl(${(p - 1) / points.length * 360}deg 75% 95%)`} r={20}></circle>
             <text textAnchor="middle" dominantBaseline="middle">
               {p}
             </text>
