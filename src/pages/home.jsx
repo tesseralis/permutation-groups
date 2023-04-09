@@ -8,7 +8,12 @@ import {
   cyclePairs,
 } from "../util";
 
-import { cyclicGroup, symmetricGroup, alternatingGroup, dihedralGroup } from "../groups"
+import {
+  cyclicGroup,
+  symmetricGroup,
+  alternatingGroup,
+  dihedralGroup,
+} from "../groups";
 import { schemeCategory10 } from "d3-scale-chromatic";
 import _ from "lodash";
 
@@ -95,8 +100,56 @@ function Sidebar({
       <div>
         <h2>Sample Groups</h2>
         <h3>Cyclic Groups</h3>
-        {_.range(2, 11).map(n => {
-          return <button onClick={() => setGenerators(generatorsToString(cyclicGroup(n)))}>C<sub>{n}</sub></button>
+        <p>Just a cycle.</p>
+        {_.range(2, 13).map((n) => {
+          return (
+            <button
+              onClick={() => setGenerators(generatorsToString(cyclicGroup(n)))}
+            >
+              C<sub>{n}</sub>
+            </button>
+          );
+        })}
+        <h3>Dihedral Groups</h3>
+        <p>
+          Symmetries of an <em>n</em>-gon.
+        </p>
+        {_.range(3, 13).map((n) => {
+          return (
+            <button
+              onClick={() =>
+                setGenerators(generatorsToString(dihedralGroup(n)))
+              }
+            >
+              D<sub>{n}</sub>
+            </button>
+          );
+        })}
+        <h3>Symmetric Groups</h3>
+        <p>All the permutations.</p>
+        {_.range(3, 13).map((n) => {
+          return (
+            <button
+              onClick={() =>
+                setGenerators(generatorsToString(symmetricGroup(n)))
+              }
+            >
+              S<sub>{n}</sub>
+            </button>
+          );
+        })}
+        <h3>Alternating Groups</h3>
+        <p>Half the permutations (the even ones).</p>
+        {_.range(4, 13).map((n) => {
+          return (
+            <button
+              onClick={() =>
+                setGenerators(generatorsToString(alternatingGroup(n)))
+              }
+            >
+              A<sub>{n}</sub>
+            </button>
+          );
         })}
       </div>
     </section>
@@ -130,26 +183,35 @@ function Diagram({ numElements, generators, points }) {
                       })
                       .join(" ")}
                   />
-                  {cycle.length > 2 && cyclePairs(cycle).map(([a, b]) => {
-                    const u = getCoordinates(a, n, radius - 2 * j)
-                    const v = getCoordinates(b, n, radius - 2 * j)
-                    const position = midpoint(u, v)
-                    const angle = Math.atan2(u[1]-v[1], u[0]-v[0]) / (2 * Math.PI) * 360
-                    const arrowRad = 5
-                    return <g transform={`translate(${position[0]}, ${position[1]})rotate(${angle})`}>
-                      <polygon points={`-${arrowRad},0 ${arrowRad},${arrowRad} ${arrowRad},-${arrowRad}`} fill="currentColor"/>
-                      </g>;
-                  })}
+                  {cycle.length > 2 &&
+                    cyclePairs(cycle).map(([a, b]) => {
+                      const u = getCoordinates(a, n, radius - 2 * j);
+                      const v = getCoordinates(b, n, radius - 2 * j);
+                      const position = midpoint(u, v);
+                      const angle =
+                        (Math.atan2(u[1] - v[1], u[0] - v[0]) / (2 * Math.PI)) *
+                        360;
+                      const arrowRad = 5;
+                      return (
+                        <g
+                          transform={`translate(${position[0]}, ${position[1]})rotate(${angle})`}
+                        >
+                          <polygon
+                            points={`-${arrowRad},0 ${arrowRad},${arrowRad} ${arrowRad},-${arrowRad}`}
+                            fill="currentColor"
+                          />
+                        </g>
+                      );
+                    })}
                 </>
               );
             })}
           </g>
         );
       })}
-      {_.range(1, points.length+1).map(p => {
+      {_.range(1, points.length + 1).map((p) => {
         const [x, y] = getCoordinates(p, n, radius);
-        return <circle cx={x} cy={y} fill="lightgrey" r={20}> 
-        </circle>
+        return <circle cx={x} cy={y} fill="lightgrey" r={20}></circle>;
       })}
       {points.map((i, _p) => {
         const p = _p + 1;
