@@ -121,7 +121,7 @@ export default function Diagram({
         const [x, y] = getCoordinates(i, n, radius);
         return (
           <g
-            className="Point"
+            className="point"
             key={p}
             style={{ transform: `translate(${x}px,${y}px)` }}
           >

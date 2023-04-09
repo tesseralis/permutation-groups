@@ -157,6 +157,6 @@ button:hover {
   cursor: pointer;
 }
 
-.Point {
+.Diagram .point {
   transition: transform 750ms linear;
 }

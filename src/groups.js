@@ -5,6 +5,8 @@ export function cyclicGroup(n) {
   return [[_.range(1, n + 1)]];
 }
 
+// Abelian group of the form C_a
+
 export function symmetricGroup(n) {
   return [[_.range(1, n + 1)], [[1, 2]]];
 }
