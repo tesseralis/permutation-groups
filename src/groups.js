@@ -1,6 +1,5 @@
 import _ from "lodash";
 
-
 export function parseGroupName(name) {
   const abelian = parseAbelian(name);
   if (abelian) return abelian;
@@ -27,7 +26,6 @@ const families = [
   { symbol: "A", generatorFn: alternatingGroup },
 ];
 
-
 // Generators for a cyclic group of order n
 export function cyclicGroup(n) {
   return [[_.range(1, n + 1)]];
@@ -36,9 +34,9 @@ export function cyclicGroup(n) {
 // Abelian group of the form C_{n1} x C_{n2} ... x C_{n_k}
 export function abelianGroup(ns) {
   let i = 1;
-  const gens = []
+  const gens = [];
   for (const n of ns) {
-    gens.push([_.range(i, i+n)])
+    gens.push([_.range(i, i + n)]);
     i += n;
   }
   return gens;
@@ -74,47 +72,51 @@ export function mathieuGroup(n) {
   switch (n) {
     case 11:
       return [
-        [_.range(1, 12)],
         [
-          [3, 7, 11, 8],
-          [4, 10, 5, 6],
+          [1, 5, 4, 2],
+          [6, 11, 10, 7],
+        ],
+        [
+          [9, 10],
+          [7, 8],
+          [2, 3],
+          [11, 1],
         ],
       ];
     case 12:
       return [
-        [_.range(1, 12)],
         [
-          [3, 7, 11, 8],
-          [4, 10, 5, 6],
+          [1, 2, 3],
+          [4, 5, 6],
+          [7, 8, 9],
+          [10, 11, 12],
         ],
         [
-          [1, 12],
-          [2, 11],
-          [3, 6],
-          [4, 8],
-          [5, 9],
-          [7, 10],
+          [3, 4],
+          [6, 7],
+          [9, 10],
+          [12, 11],
         ],
       ];
     case 22:
       return [
         [
-          [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-          [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22],
+          [1, 6, 5, 2],
+          [7, 11, 10, 8],
+          [12, 13, 16, 17],
+          [18, 19, 21, 22],
+          [3, 4],
+          [14, 15],
         ],
         [
-          [1, 4, 5, 9, 3],
-          [2, 8, 10, 7, 6],
-          [12, 15, 16, 20, 14],
-          [13, 19, 21, 18, 17],
-        ],
-        [
-          [1, 21],
-          [2, 10, 8, 6],
-          [3, 13, 4, 17],
-          [5, 19, 9, 18],
-          [11, 22],
-          [12, 14, 16, 20],
+          [22, 1],
+          [2, 3],
+          [6, 7],
+          [8, 9],
+          [11, 12],
+          [13, 14],
+          [17, 18],
+          [19, 20],
         ],
       ];
     case 23:
