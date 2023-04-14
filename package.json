@@ -1,7 +1,7 @@
 {
-  "name": "glitch-hello-react",
+  "name": "permutation-groups",
   "version": "0.0.5",
-  "description": "A simple React single page app, built with Vite and React.",
+  "description": "Visualize and manipulate permutations.",
   "scripts": {
     "start": "vite",
     "build": "vite build",
@@ -30,7 +30,7 @@
     "node": "14.x"
   },
   "repository": {
-    "url": "https://glitch.com/edit/#!/glitch-hello-react"
+    "url": "https://glitch.com/edit/#!/permutation-groups"
   },
   "glitch": {
     "projectType": "generated_static"

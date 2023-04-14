@@ -85,6 +85,7 @@ function Sidebar({
   return (
     <section className="Sidebar">
       <h1>Permutation Group Visualizer</h1>
+      <p className="tag">by <a href="https://tesseralis.site">@tesseralis</a></p>
       <p>
         This app visualizes the operations of a{" "}
         <a href="https://en.wikipedia.org/wiki/Permutation_group">

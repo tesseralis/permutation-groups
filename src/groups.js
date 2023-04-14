@@ -53,9 +53,9 @@ export function alternatingGroup(n) {
 // Dihedral group of order 2n
 export function dihedralGroup(n) {
   return [
-    [_.range(1, n + 1), _.range(2 * n, n, -1)],
-    _.range(1, n + 1).map((i) => [i, 2 * n + 1 - i]),
-  ];
+    [_.range(1, n + 1)],
+    _.range(1, Math.floor(n / 2) + 1).map(i => [i, n - i + 1])
+  ]
 }
 
 export function dicyclicGroup(n) {
