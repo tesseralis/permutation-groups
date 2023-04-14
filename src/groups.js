@@ -54,8 +54,8 @@ export function alternatingGroup(n) {
 export function dihedralGroup(n) {
   return [
     [_.range(1, n + 1)],
-    _.range(1, Math.floor(n / 2) + 1).map(i => [i, n - i + 1])
-  ]
+    _.range(1, Math.floor(n / 2) + 1).map((i) => [i, n - i + 1]),
+  ];
 }
 
 export function dicyclicGroup(n) {
@@ -73,14 +73,14 @@ export function mathieuGroup(n) {
     case 11:
       return [
         [
-          [1, 5, 4, 2],
-          [6, 11, 10, 7],
+          [1, 6, 5, 2],
+          [10, 8, 7, 11],
         ],
         [
-          [9, 10],
-          [7, 8],
           [2, 3],
-          [11, 1],
+          [4, 5],
+          [6, 7],
+          [9, 10],
         ],
       ];
     case 12:
