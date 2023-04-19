@@ -92,6 +92,7 @@ button:hover {
   border-width: 1.5px;
   border-radius: 9999px;
   border-color: var(--operation-color);
+  white-space: nowrap;
 }
 
 .Operations .applyBtn:hover {
