@@ -68,6 +68,14 @@ export function dicyclicGroup(n) {
   ];
 }
 
+export function semidihedralGroup(n) {
+  const pow = 2**n
+  return [
+    [_.range(1, pow)],
+    
+  ]
+}
+
 export function mathieuGroup(n) {
   switch (n) {
     case 11:
