@@ -101,7 +101,8 @@ function Sidebar({
         them back in order!
       </p>
       <label>
-        <div>Generators (in cycle notation, one generator per line)</div>
+        <h2>Generators</h2> 
+        <div>In cycle notation, one generator per line.</div>
         <textarea
           placeholder="(1 2 3)&#10;(1 2)"
           value={generatorsString}
@@ -115,7 +116,7 @@ function Sidebar({
         setPoints={setPoints}
         setHovered={setHoveredCycle}
       />
-      <h2>Sample Groups</h2>
+      <h2>Group Families</h2>
       <SampleGroups setGroup={setGroup} />
       <h2>More Groups</h2>
       <ul>
