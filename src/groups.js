@@ -11,9 +11,9 @@ export function parseGroupName(name) {
 }
 
 function parseAbelian(name) {
-  const match = name.match(/^(?:C[0-9]+_)+C[0-9]+$/);
+  const match = name.match(/^(?:C[0-9]+[x_])+C[0-9]+$/);
   if (!match) return;
-  const ns = name.split("_").map((n) => +n.slice(1));
+  const ns = name.split(/[x_]/g).map((n) => +n.slice(1));
   return abelianGroup(ns);
 }
 

@@ -81,13 +81,14 @@ const families = [
       [2, 2, 2],
       [2, 4],
       [3, 3],
-      [2, 2, 3],
+      [2, 6],
     ],
     generators: abelianGroup,
     path: ns => {
-      return ns.map(n => 'C'+n).join('_')
+      return ns.map(n => 'C'+n).join('x')
     },
     symbol: (ns) => {
+      // TODO support power notation
       return (
         <>
           {ns
