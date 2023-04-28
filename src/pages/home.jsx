@@ -8,20 +8,16 @@ import {
   cyclePairs,
   randomize,
 } from "../util";
-import useSearchParams from "../useSearchParams";
-
-import { parseGroupName } from "../groups";
 
 import { schemeCategory10 } from "d3-scale-chromatic";
 import _ from "lodash";
 import Diagram from "../components/Diagram";
 import SampleGroups from "../components/SampleGroups";
 import Operations from "../components/Operations";
-import { getGenerators } from "../searchParams";
+import usePermutationParams from "../usePermutationParams";
 
 export default function DiagramPage() {
-  const [params, setSearchParams] = useSearchParams();
-  const generators = getGenerators(params);
+  const { generators, setGenerators, setGroup } = usePermutationParams();
   const [points, setPoints] = React.useState(
     pointsFromGenerators(parseCycleNotation(generators))
   );
@@ -38,21 +34,13 @@ export default function DiagramPage() {
     setPoints(pointsFromGenerators(parseCycleNotation(generators)));
   }
 
-  const doSetGenerators = (generators) => {
-    setSearchParams({ generators });
-  };
-
-  const setGroup = (name) => {
-    setSearchParams({ group: name });
-  };
-
   return (
     <div className="DiagramPage">
       <Sidebar
         numElements={points.length}
         setNumElements={setNumElements}
         generators={generators}
-        setGenerators={doSetGenerators}
+        setGenerators={setGenerators}
         applyGenerator={doApplyGenerator}
         setPoints={setPoints}
         setHoveredCycle={setHoveredCycle}
@@ -101,7 +89,7 @@ function Sidebar({
         them back in order!
       </p>
       <label>
-        <h2>Generators</h2> 
+        <h2>Generators</h2>
         <div>In cycle notation, one generator per line.</div>
         <textarea
           placeholder="(1 2 3)&#10;(1 2)"

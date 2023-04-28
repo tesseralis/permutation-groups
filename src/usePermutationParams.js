@@ -14,7 +14,7 @@ export default function usePermutationParams() {
   const setGroup = (name) => {
     setSearchParams({ group: name });
   };
-  return { generators };
+  return { generators, setGenerators, setGroup };
 }
 
 const DEFAULT_GENERATORS = "(1 2 3)\n(4 5 6)\n(1 6)(3 4)";
