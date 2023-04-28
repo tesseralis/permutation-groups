@@ -18,6 +18,8 @@ export default function Diagram({
   points,
   hoveredCycle,
   setHoveredCycle,
+  coordinates = getDefaultCoordinates(points.length),
+  setCoordinates,
 }) {
   const n = points.length;
   const radius = 250;
@@ -54,7 +56,7 @@ export default function Diagram({
               const isInverse = isHovered && !!hoveredCycle[2];
               const polygonPoints = cycle
                 .map((i) => {
-                  const [x, y] = getCoordinates(i, n, radius);
+                  const [x, y] = coordinates[i];
                   return `${x},${y}`;
                 })
                 .join(" ");
@@ -74,8 +76,8 @@ export default function Diagram({
 
                   {cycle.length > 2 &&
                     cyclePairs(cycle).map(([a, b]) => {
-                      const u = getCoordinates(a, n, radius);
-                      const v = getCoordinates(b, n, radius);
+                      const u = coordinates[a];
+                      const v = coordinates[b];
                       const position = midpoint(u, v);
                       const angle =
                         (Math.atan2(u[1] - v[1], u[0] - v[0]) / (2 * Math.PI)) *
@@ -83,7 +85,7 @@ export default function Diagram({
                       const arrowRad = 5;
                       return (
                         <g
-                          key={a+' '+b}
+                          key={a + " " + b}
                           transform={`translate(${position[0]}, ${position[1]})rotate(${angle})`}
                         >
                           <polygon
@@ -112,7 +114,7 @@ export default function Diagram({
       })}
       {_.range(1, points.length + 1).map((p) => {
         const isSelected = selectedPoints.includes(p);
-        const [x, y] = getCoordinates(p, n, radius);
+        const [x, y] = coordinates[p];
         return (
           <g key={p} transform={`translate(${x}, ${y})`}>
             <circle className="slot" data-selected={isSelected} r={20}></circle>
@@ -122,14 +124,19 @@ export default function Diagram({
       })}
       {points.map((i, _p) => {
         const p = _p + 1;
-        const [x, y] = getCoordinates(i, n, radius);
+        const [x, y] = coordinates[p];
         return (
           <g
             className="point"
             key={p}
             style={{ transform: `translate(${x}px,${y}px)` }}
           >
-            <circle stroke="grey" strokeWidth={1} fill={`aliceblue`} r={20}></circle>
+            <circle
+              stroke="grey"
+              strokeWidth={1}
+              fill={`aliceblue`}
+              r={20}
+            ></circle>
             <text textAnchor="middle" dominantBaseline="middle">
               {p}
             </text>
@@ -140,9 +147,18 @@ export default function Diagram({
   );
 }
 
+function getDefaultCoordinates(n) {
+  const radius = 250;
+  return [, ..._.range(1, n + 1).map((i) => getCoordinates(i, n, radius))];
+}
+
 function getCoordinates(i, n, radius) {
-  const x = Math.round(radius * Math.cos(((i - 1) * 2 * Math.PI) / n - Math.PI / 2));
-  const y = Math.round(radius * Math.sin(((i - 1) * 2 * Math.PI) / n - Math.PI / 2));
+  const x = Math.round(
+    radius * Math.cos(((i - 1) * 2 * Math.PI) / n - Math.PI / 2)
+  );
+  const y = Math.round(
+    radius * Math.sin(((i - 1) * 2 * Math.PI) / n - Math.PI / 2)
+  );
   return [x, y];
 }
 
