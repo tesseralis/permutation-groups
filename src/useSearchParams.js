@@ -20,7 +20,7 @@ export default function useSearchParams() {
 
 function paramsToObject(entries) {
   const result = {}
-  for(const [key, value] of entries) { // each 'entry' is a [key, value] tupple
+  for(const [key, value] of entries) { // each 'entry' is a [key, value] tuple
     result[key] = value;
   }
   return result;
