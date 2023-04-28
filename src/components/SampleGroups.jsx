@@ -127,7 +127,7 @@ const families = [
   },
   {
     title: "Alternating groups",
-    description: "Half the permutations. (the even ones)",
+    description: "Half the permutations (the even ones).",
     range: _.range(4, 13),
     generators: alternatingGroup,
   },
@@ -150,7 +150,7 @@ const families = [
     range: _.range(4, 7),
     symbol: (n) => (
       <>
-        M<sub>n</sub>(2)
+        M<sub>{n}</sub>(2)
       </>
     ),
     path: (n) => `M${n}(2)`,
