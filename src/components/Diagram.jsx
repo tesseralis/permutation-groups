@@ -129,7 +129,7 @@ export default function Diagram({
             key={p}
             style={{ transform: `translate(${x}px,${y}px)` }}
           >
-            <circle stroke="grey" strokeWidth={1} fill={`lightcyan`} r={20}></circle>
+            <circle stroke="grey" strokeWidth={1} fill={`aliceblue`} r={20}></circle>
             <text textAnchor="middle" dominantBaseline="middle">
               {p}
             </text>

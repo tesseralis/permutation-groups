@@ -36,6 +36,10 @@ p {
   margin: 0.5rem 0;
 }
 
+ul {
+  padding-left: 1rem;
+}
+
 button {
   background: white;
   border: 1.25px solid lightgrey;
