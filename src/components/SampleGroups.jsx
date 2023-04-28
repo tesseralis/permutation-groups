@@ -30,11 +30,12 @@ export default function SampleGroups({ setGroup }) {
           generators,
           symbol = title[0],
           path,
+          ref,
         }) => {
           return (
             <div key={title}>
               <h3>{title}</h3>
-              <p>{description}</p>
+              <p>{description} <a href={ref} target="_blank" rel="noopener noreferrer">ref</a></p>
               <div className="list">
                 {range.map((n) => {
                   const name = path?.(n) ?? symbol + n;
@@ -79,6 +80,7 @@ const families = [
     description: "Just a cycle.",
     range: _.range(2, 13),
     generators: cyclicGroup,
+    ref: "https://people.maths.bris.ac.uk/~matyd/GroupNames/cyclic.html",
   },
   {
     title: "Abelian Groups",
@@ -108,6 +110,7 @@ const families = [
         </>
       );
     },
+    ref: "https://people.maths.bris.ac.uk/~matyd/GroupNames/A.html",
   },
   {
     title: "Dihedral groups",
@@ -118,18 +121,21 @@ const families = [
     ),
     range: _.range(2, 13),
     generators: dihedralGroup,
+    ref: "https://people.maths.bris.ac.uk/~matyd/GroupNames/dihedral.html",
   },
   {
     title: "Symmetric groups",
     description: "All the permutations.",
     range: _.range(3, 13),
     generators: symmetricGroup,
+    ref: "https://people.maths.bris.ac.uk/~matyd/GroupNames/symmetric.html",
   },
   {
     title: "Alternating groups",
     description: "Half the permutations (the even ones).",
     range: _.range(4, 13),
     generators: alternatingGroup,
+    ref: "https://people.maths.bris.ac.uk/~matyd/GroupNames/alternating.html",
   },
   {
     title: "Dicyclic groups",
@@ -137,12 +143,14 @@ const families = [
     description: "Quaternions n' friends.",
     range: _.range(2, 7),
     generators: dicyclicGroup,
+    ref: "https://people.maths.bris.ac.uk/~matyd/GroupNames/dicyclic.html",
   },
   {
     title: "Semidihedral groups",
     symbol: "SD",
     description: "The dihedral groups' cousin.",
     range: _.range(3, 6).map((n) => 2 ** n),
+    ref: "https://people.maths.bris.ac.uk/~matyd/GroupNames/semidihedral.html",
   },
   {
     title: "Modular maximal-cyclic groups",
@@ -154,11 +162,13 @@ const families = [
       </>
     ),
     path: (n) => `M${n}(2)`,
+    ref: "https://people.maths.bris.ac.uk/~matyd/GroupNames/modular.html",
   },
   {
     title: "Mathieu groups",
     description: "Smallest of the sporadic groups.",
     range: [11, 12, 22, 23, 24],
     generators: mathieuGroup,
+    ref: "https://en.wikipedia.org/wiki/Mathieu_group",
   },
 ];

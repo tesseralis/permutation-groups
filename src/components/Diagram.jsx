@@ -125,7 +125,7 @@ export default function Diagram({
       })}
       {points.map((i, _p) => {
         const p = _p + 1;
-        const {x, y} = coordinates[p];
+        const {x, y} = coordinates[i];
         return (
           <g
             className="point"
