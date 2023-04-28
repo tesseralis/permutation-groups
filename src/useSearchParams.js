@@ -14,5 +14,14 @@ export default function useSearchParams() {
       newParams.toString();
     window.history.pushState({ path: newurl }, "", newurl);
   };
-  return [new URL(window.location).searchParams, setSearchParams];
+  const params = new URL(window.location).searchParams
+  return [paramsToObject(params), setSearchParams];
+}
+
+function paramsToObject(entries) {
+  const result = {}
+  for(const [key, value] of entries) { // each 'entry' is a [key, value] tupple
+    result[key] = value;
+  }
+  return result;
 }
