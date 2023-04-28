@@ -56,7 +56,7 @@ export default function Diagram({
               const isInverse = isHovered && !!hoveredCycle[2];
               const polygonPoints = cycle
                 .map((i) => {
-                  const [x, y] = coordinates[i];
+                  const {x, y} = coordinates[i];
                   return `${x},${y}`;
                 })
                 .join(" ");
@@ -80,13 +80,13 @@ export default function Diagram({
                       const v = coordinates[b];
                       const position = midpoint(u, v);
                       const angle =
-                        (Math.atan2(u[1] - v[1], u[0] - v[0]) / (2 * Math.PI)) *
+                        (Math.atan2(u.y - v.y, u.x - v.x) / (2 * Math.PI)) *
                         360;
                       const arrowRad = 5;
                       return (
                         <g
                           key={a + " " + b}
-                          transform={`translate(${position[0]}, ${position[1]})rotate(${angle})`}
+                          transform={`translate(${position.x}, ${position.y})rotate(${angle})`}
                         >
                           <polygon
                             className="arrow"
@@ -114,7 +114,7 @@ export default function Diagram({
       })}
       {_.range(1, points.length + 1).map((p) => {
         const isSelected = selectedPoints.includes(p);
-        const [x, y] = coordinates[p];
+        const {x, y} = coordinates[p];
         return (
           <g key={p} transform={`translate(${x}, ${y})`}>
             <circle className="slot" data-selected={isSelected} r={20}></circle>
@@ -124,7 +124,7 @@ export default function Diagram({
       })}
       {points.map((i, _p) => {
         const p = _p + 1;
-        const [x, y] = coordinates[p];
+        const {x, y} = coordinates[p];
         return (
           <g
             className="point"
@@ -159,11 +159,11 @@ function getCoordinates(i, n, radius) {
   const y = Math.round(
     radius * Math.sin(((i - 1) * 2 * Math.PI) / n - Math.PI / 2)
   );
-  return [x, y];
+  return {x, y};
 }
 
 function midpoint(u, v) {
-  return [(u[0] + v[0]) / 2, (u[1] + v[1]) / 2];
+  return {x: (u.x + v.x) / 2, y: (u.y + v.y) / 2};
 }
 
 function brightenColor(color) {
