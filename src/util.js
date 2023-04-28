@@ -9,7 +9,7 @@ export function parseCycleNotation(cyclesString) {
 
 function parseGenerator(generator) {
   return [...generator.matchAll(/\(([^)]+)\)/g)].map((x) =>
-    x[1].split(/ +/g).map((i) => +i)
+    x[1].trim().split(/[ ,]+/g).map((i) => +i)
   );
 }
 
