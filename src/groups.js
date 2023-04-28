@@ -3,6 +3,8 @@ import _ from "lodash";
 export function parseGroupName(name) {
   const abelian = parseAbelian(name);
   if (abelian) return abelian;
+  const maxModCyclic = parseMaxModCyclic(name);
+  if (maxModCyclic) return maxModCyclic;
   const match = name.match(/^([A-Z][A-Za-z]*)([0-9]+)$/);
   if (!match) return;
   const family = families.find((f) => f.symbol === match[1]);
@@ -15,6 +17,13 @@ function parseAbelian(name) {
   if (!match) return;
   const ns = name.split(/[x_]/g).map((n) => +n.slice(1));
   return abelianGroup(ns);
+}
+
+function parseMaxModCyclic(name) {
+  const match = name.match(/M(\d+)\(2\)/);
+  if (!match) return;
+  const n = match[1];
+  return maxModCyclicGroup(n);
 }
 
 const families = [
@@ -82,11 +91,11 @@ export function semidihedralGroup(pow) {
   ];
 }
 
-export function maxModCyclic(n) {
-  const pow = 2**n
+export function maxModCyclicGroup(n) {
+  const pow = 2**(n-1)
   return [
     [_.range(1, pow+1)],
-    
+    _.range(2, pow/2+1, 2).map(x => [x, x + pow/2])
   ]
 }
 

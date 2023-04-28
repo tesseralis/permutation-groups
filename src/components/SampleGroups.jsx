@@ -23,14 +23,21 @@ export default function SampleGroups({ setGroup }) {
   return (
     <div className="SampleGroups">
       {families.map(
-        ({ title, description, range, generators, symbol = title[0], path }) => {
+        ({
+          title,
+          description,
+          range,
+          generators,
+          symbol = title[0],
+          path,
+        }) => {
           return (
             <div key={title}>
               <h3>{title}</h3>
               <p>{description}</p>
               <div className="list">
                 {range.map((n) => {
-                  const name = path?.(n) ?? symbol + n
+                  const name = path?.(n) ?? symbol + n;
                   return (
                     <a
                       className="groupLink"
@@ -84,8 +91,8 @@ const families = [
       [2, 6],
     ],
     generators: abelianGroup,
-    path: ns => {
-      return ns.map(n => 'C'+n).join('x')
+    path: (ns) => {
+      return ns.map((n) => "C" + n).join("x");
     },
     symbol: (ns) => {
       // TODO support power notation
@@ -103,7 +110,7 @@ const families = [
     },
   },
   {
-    title: "Dihedral Groups",
+    title: "Dihedral groups",
     description: (
       <span>
         Symmetries of an <em>n</em>-gon.
@@ -113,26 +120,43 @@ const families = [
     generators: dihedralGroup,
   },
   {
-    title: "Symmetric Groups",
+    title: "Symmetric groups",
     description: "All the permutations.",
     range: _.range(3, 13),
     generators: symmetricGroup,
   },
   {
-    title: "Alternating Groups",
+    title: "Alternating groups",
     description: "Half the permutations. (the even ones)",
     range: _.range(4, 13),
     generators: alternatingGroup,
   },
   {
-    title: "Dicyclic Groups",
+    title: "Dicyclic groups",
     symbol: "Dic",
     description: "Quaternions n' friends.",
     range: _.range(2, 7),
     generators: dicyclicGroup,
   },
   {
-    title: "Mathieu Groups",
+    title: "Semidihedral groups",
+    symbol: "SD",
+    description: "The dihedral groups' cousin.",
+    range: _.range(3, 6).map((n) => 2 ** n),
+  },
+  {
+    title: "Modular maximal-cyclic groups",
+    description: "The dihedral groups' other cousin.",
+    range: _.range(4, 7),
+    symbol: (n) => (
+      <>
+        M<sub>n</sub>(2)
+      </>
+    ),
+    path: (n) => `M${n}(2)`,
+  },
+  {
+    title: "Mathieu groups",
     description: "Smallest of the sporadic groups.",
     range: [11, 12, 22, 23, 24],
     generators: mathieuGroup,
