@@ -3,7 +3,7 @@ import _ from "lodash";
 export function parseGroupName(name) {
   const abelian = parseAbelian(name);
   if (abelian) return abelian;
-  const match = name.match(/^([A-Z][a-z]*)([0-9]+)$/);
+  const match = name.match(/^([A-Z][A-Za-z]*)([0-9]+)$/);
   if (!match) return;
   const family = families.find((f) => f.symbol === match[1]);
   if (!family) return;
@@ -21,6 +21,7 @@ const families = [
   { symbol: "C", generatorFn: cyclicGroup },
   { symbol: "D", generatorFn: dihedralGroup },
   { symbol: "Dic", generatorFn: dicyclicGroup },
+  { symbol: "SD", generatorFn: semidihedralGroup },
   { symbol: "M", generatorFn: mathieuGroup },
   { symbol: "S", generatorFn: symmetricGroup },
   { symbol: "A", generatorFn: alternatingGroup },
@@ -68,10 +69,23 @@ export function dicyclicGroup(n) {
   ];
 }
 
-export function semidihedralGroup(n) {
+export function semidihedralGroup(pow) {
+  return [
+    [_.range(1, pow+1)],
+    [
+      ..._.range(3, pow / 2, 2).map((i) => [i, pow - i + 2]),
+      ..._.range(2, pow / 4+1, 2).flatMap((i) => [
+        [i, pow / 2 - i + 2],
+        [pow - i + 2, pow / 2 + i],
+      ]),
+    ],
+  ];
+}
+
+export function maxModCyclic(n) {
   const pow = 2**n
   return [
-    [_.range(1, pow)],
+    [_.range(1, pow+1)],
     
   ]
 }

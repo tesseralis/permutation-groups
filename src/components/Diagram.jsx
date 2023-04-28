@@ -25,6 +25,7 @@ export default function Diagram({
   const radius = 250;
   const hasSelection = !!hoveredCycle;
   const selectedPoints = getSelectedPoints(generators, hoveredCycle);
+  const slotRadius = Math.min(20, 20 * 25 / n)
   const selectedColor = hoveredCycle
     ? schemeCategory10[hoveredCycle[0]]
     : "lightgrey";
@@ -117,8 +118,8 @@ export default function Diagram({
         const {x, y} = coordinates[p];
         return (
           <g key={p} transform={`translate(${x}, ${y})`}>
-            <circle className="slot" data-selected={isSelected} r={20}></circle>
-            <circle fill="lightgrey" r={20}></circle>
+            <circle className="slot" data-selected={isSelected} r={slotRadius}></circle>
+            <circle fill="lightgrey" r={slotRadius}></circle>
           </g>
         );
       })}
@@ -135,7 +136,7 @@ export default function Diagram({
               stroke="grey"
               strokeWidth={1}
               fill={`aliceblue`}
-              r={20}
+              r={slotRadius}
             ></circle>
             <text textAnchor="middle" dominantBaseline="middle">
               {p}
