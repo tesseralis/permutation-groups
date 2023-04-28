@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import useSearchParams from "./useSearchParams";
 import { parseGroupName } from "./groups";
 
@@ -5,7 +6,9 @@ import { generatorsToString } from "./util";
 
 export default function usePermutationParams() {
   const [params, setSearchParams] = useSearchParams();
-  const generators = getGenerators(params);
+  const generators = useMemo(() => {
+    return getGenerators(params);
+  }, [params]);
 
   const setGenerators = (generators) => {
     setSearchParams({ generators });

@@ -1,6 +1,5 @@
 import {
   cycleToString,
-  applyGenerator,
   inversePermutation,
   isInvolution,
   randomize,

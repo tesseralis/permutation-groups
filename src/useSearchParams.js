@@ -1,4 +1,4 @@
-import { useState, useSyncExternalStore } from "react";
+import { useState, useMemo } from "react";
 
 export default function useSearchParams() {
   const [count, setCount] = useState(0);
@@ -14,13 +14,16 @@ export default function useSearchParams() {
       newParams.toString();
     window.history.pushState({ path: newurl }, "", newurl);
   };
-  const params = new URL(window.location).searchParams
-  return [paramsToObject(params), setSearchParams];
+  const params = useMemo(() => {
+    return paramsToObject(new URL(window.location).searchParams);
+  }, [count]);
+  return [params, setSearchParams];
 }
 
 function paramsToObject(entries) {
-  const result = {}
-  for(const [key, value] of entries) { // each 'entry' is a [key, value] tuple
+  const result = {};
+  for (const [key, value] of entries) {
+    // each 'entry' is a [key, value] tuple
     result[key] = value;
   }
   return result;

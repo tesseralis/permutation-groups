@@ -25,11 +25,13 @@ export default function DiagramPage() {
   const [hoveredCycle, setHoveredCycle] = React.useState(null);
   const setNumElements = (n) => setPoints(_.range(1, n + 1));
   const doApplyGenerator = (generator) => {
+    console.log("applying generator")
     setPoints((p) => applyGenerator(generator, p));
   };
 
   // Reset points if generators changes
   if (generators !== prevGenerators) {
+    console.log('resetting generators')
     setPrevGenerators(generators);
     setPoints(pointsFromGenerators(parseCycleNotation(generators)));
   }
