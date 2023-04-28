@@ -54,7 +54,7 @@ export default function Diagram({
               const isInverse = isHovered && !!hoveredCycle[2];
               const polygonPoints = cycle
                 .map((i) => {
-                  const [x, y] = getCoordinates(i, n, radius - 2 * j);
+                  const [x, y] = getCoordinates(i, n, radius);
                   return `${x},${y}`;
                 })
                 .join(" ");
@@ -74,8 +74,8 @@ export default function Diagram({
 
                   {cycle.length > 2 &&
                     cyclePairs(cycle).map(([a, b]) => {
-                      const u = getCoordinates(a, n, radius - 2 * j);
-                      const v = getCoordinates(b, n, radius - 2 * j);
+                      const u = getCoordinates(a, n, radius);
+                      const v = getCoordinates(b, n, radius);
                       const position = midpoint(u, v);
                       const angle =
                         (Math.atan2(u[1] - v[1], u[0] - v[0]) / (2 * Math.PI)) *
@@ -141,8 +141,8 @@ export default function Diagram({
 }
 
 function getCoordinates(i, n, radius) {
-  const x = radius * Math.cos(((i - 1) * 2 * Math.PI) / n - Math.PI / 2);
-  const y = radius * Math.sin(((i - 1) * 2 * Math.PI) / n - Math.PI / 2);
+  const x = Math.round(radius * Math.cos(((i - 1) * 2 * Math.PI) / n - Math.PI / 2));
+  const y = Math.round(radius * Math.sin(((i - 1) * 2 * Math.PI) / n - Math.PI / 2));
   return [x, y];
 }
 
